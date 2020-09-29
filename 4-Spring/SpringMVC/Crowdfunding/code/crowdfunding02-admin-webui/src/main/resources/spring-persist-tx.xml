@@ -51,5 +51,4 @@
         <!--将事务通知和切入点表达式关联到一起-->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
     </aop:config>
-
 </beans>

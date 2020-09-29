@@ -1,17 +1,21 @@
 package com.tawe.crowd.mvc.controller;
 
+import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.exception.LoginFailedException;
 import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.service.AdminService;
+import com.tawe.crowd.util.CrowdUtil;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +32,32 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping("test/ssm.html")
+    @RequestMapping("/admin/do/login.html")
+    public String doLogin(@RequestParam("loginAcct") String loginAcct,
+                          @RequestParam("loginPaswd") String loginPaswd,
+                          HttpSession session) {
+        // 调用 Service 方法执行登录检查;
+
+        Admin admin = adminService.getAdminByLoginAcct(loginAcct, loginPaswd);
+
+        // 返回 Admin 对象说明登录成功;
+        // 如果账号, 密码不正确则会抛出异常;
+        if (admin == null) {
+            throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED.getMsg());
+        }
+
+        // 登录成功将返回的  admin 对象加入 Session 域中
+        session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN.getMsg(), admin);
+
+        // 直接返回页面会导致,后续每次刷新 main 页面都会重新提交 登录请求
+        // return "admin-main";
+        // 使用重定向解决该问题, 不可直接 redirect 页面 admin-main.jsp 在 WEB-INF 下不可访问
+        // return "redirect:admin-main"
+        // 通过 controller 请求重定向, 此处由于是直接返回页面,可以在 xml 中配置 mvc:view-controller
+        return "redirect:/admin/to/main/page.html";
+    }
+
+    @RequestMapping("/test/ssm.html")
     public String ssmIndex(ModelMap modelMap) throws LoginFailedException {
         List<Admin> admins = adminService.selectAll();
         modelMap.addAttribute("admins", admins);
@@ -36,23 +65,29 @@ public class AdminController {
         return "target";
     }
 
-    @RequestMapping("test/login_exception.html")
+    @RequestMapping("/test/login_exception.html")
     public String testException() throws LoginFailedException {
         throw new LoginFailedException();
     }
 
-    @RequestMapping("test/sys_exception.html")
+    @RequestMapping("/test/sys_exception.html")
     public String testSystemErrorException() throws SystemErrorException {
         throw new SystemErrorException("system error message!");
     }
 
     @ResponseBody
-    @RequestMapping("test/ajax.json")
+    @RequestMapping("/test/ajax.json")
     public ResultEntity<List<Admin>> getUserById(@RequestBody Integer[] ids) {
         List<Admin> admins = new ArrayList<>();
         for (Integer id : ids) {
             admins.add(adminService.selectById(id));
         }
         return ResultEntity.succeededWithData(admins);
+    }
+
+    @ResponseBody
+    @RequestMapping("/test/ajax_exception.json")
+    public ResultEntity<List<Admin>> testAjaxException() throws SystemErrorException {
+        throw new SystemErrorException("system error message!");
     }
 }

@@ -25,7 +25,7 @@
         <!--指定 MyBatis 全局配置文件位置-->
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!--指定 Mapper 配置文件位置-->
-        <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/AdminMapper.xml"/>
     </bean>
 
     <!--配置 MapperScannerConfigure-->

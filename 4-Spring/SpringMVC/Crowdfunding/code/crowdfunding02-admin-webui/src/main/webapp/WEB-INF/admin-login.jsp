@@ -37,6 +37,7 @@
 
     <form action="admin/do/login.html" class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i>管理员登录</h2>
+        <h3>${requestScope.exception.message}</h3>
         <div class="form-group has-success has-feedback">
             <input type="text" name="loginAcct" class="form-control" id="loginAcct" placeholder="请输入登录账号" autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>

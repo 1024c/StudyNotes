@@ -13,16 +13,23 @@ public enum CrowdConstant {
      */
     ATTR_NAME_EXCEPTION("exception"),
     MESSAGE_LOGIN_FAILED("登录失败! 请确认账号密码是否正确!"),
-    MESSAGE_STRING_INVALIDATE("字符串为空! 请重新输入!")
-    ;
+    MESSAGE_LOGIN_FAILED_USER_NOT_EXIST("登录失败! 用户不存在!"),
+    MESSAGE_LOGIN_FAILED_USER_NOT_UNIQUE("登录失败! 数据库中存在重复用户名!"),
+    MESSAGE_STRING_INVALIDATE("字符串为空! 请重新输入!"),
 
-    public final String str;
-    CrowdConstant(String str) {
-        this.str = str;
+    ATTR_NAME_LOGIN_ADMIN("admin");
+
+    public final String msg;
+    CrowdConstant(String msg) {
+        this.msg = msg;
     }
 
     @Override
     public String toString() {
-        return this.str;
+        return this.msg;
+    }
+
+    public String getMsg() {
+        return this.msg;
     }
 }

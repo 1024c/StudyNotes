@@ -32,7 +32,7 @@ public class CrowdExceptionResolver {
     }
 
     @ExceptionHandler(SystemErrorException.class)
-    public ModelAndView resolveSystemErrorException(LoginFailedException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ModelAndView resolveSystemErrorException(SystemErrorException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String viewName = "system-error";
         return resolveException(e, request, response, viewName);
     }
@@ -78,7 +78,7 @@ public class CrowdExceptionResolver {
         ModelAndView modelAndView = new ModelAndView();
 
         // 10. 将 Exception 对象存入模型
-        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION.toString(), e);
+        modelAndView.addObject(CrowdConstant.ATTR_NAME_EXCEPTION.getMsg(), e);
 
         // 11. 设置目标视图名称
         modelAndView.setViewName(viewName);
