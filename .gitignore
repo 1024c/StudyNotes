@@ -27,6 +27,8 @@ hs_err_pid*
 ### IDEA
 .idea/
 *.iml
+*.ipr
+*.iws
 
 # Maven
 target/
@@ -46,5 +48,3 @@ Mybatis/IDEA-workspaces/simple/.settings/org.eclipse.jdt.core.prefs
 
 # nacos logs
 *.log.*
-*.ipr
-*.iws
