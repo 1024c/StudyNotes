@@ -1,4 +1,4 @@
-package com.tawe.crowd;
+package com.tawe.crowd.test;
 
 import com.tawe.crowd.dao.AdminMapper;
 import com.tawe.crowd.entity.Admin;

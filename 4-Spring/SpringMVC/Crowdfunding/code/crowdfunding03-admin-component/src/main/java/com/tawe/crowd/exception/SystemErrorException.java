@@ -1,4 +1,4 @@
-package com.tawe.crowd.customize.exception;
+package com.tawe.crowd.exception;
 
 /**
  * @ClassName SystemErrorException

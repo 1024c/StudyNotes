@@ -2,11 +2,10 @@ package com.tawe.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.tawe.crowd.constant.CrowdConstant;
-import com.tawe.crowd.customize.exception.LoginFailedException;
-import com.tawe.crowd.customize.exception.SystemErrorException;
+import com.tawe.crowd.exception.LoginFailedException;
+import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.util.CrowdUtil;
 import com.tawe.crowd.util.ResultEntity;
-import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.rmi.MarshalledObject;
 
 /**
  * @ClassName CrowdExceptionResolver

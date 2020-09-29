@@ -16,7 +16,7 @@
         let array = [1, 10, 20];
         let arrayStr = JSON.stringify(array);
         $(function () {
-            layer.msg("heello");
+            // layer.msg("heello");
             $("#testAjax").click(function () {
                 let id=JSON.stringify({"id":1});
                 $.ajax({

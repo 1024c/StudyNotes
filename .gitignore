@@ -46,3 +46,5 @@ Mybatis/IDEA-workspaces/simple/.settings/org.eclipse.jdt.core.prefs
 
 # nacos logs
 *.log.*
+*.ipr
+*.iws

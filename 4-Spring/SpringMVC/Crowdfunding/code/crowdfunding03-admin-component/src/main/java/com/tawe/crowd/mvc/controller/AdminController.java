@@ -1,7 +1,7 @@
 package com.tawe.crowd.mvc.controller;
 
-import com.tawe.crowd.customize.exception.LoginFailedException;
-import com.tawe.crowd.customize.exception.SystemErrorException;
+import com.tawe.crowd.exception.LoginFailedException;
+import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.service.AdminService;
 import com.tawe.crowd.util.ResultEntity;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
