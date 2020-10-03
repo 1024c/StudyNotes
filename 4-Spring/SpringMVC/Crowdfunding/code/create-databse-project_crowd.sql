@@ -1,3 +1,4 @@
+create database project_crowd;
 use project_crowd;
 drop table if exists t_admin;
 create table t_admin

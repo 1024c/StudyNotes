@@ -1,11 +1,10 @@
 package com.tawe.crowd.mvc.controller;
 
 import com.tawe.crowd.constant.CrowdConstant;
+import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.exception.LoginFailedException;
 import com.tawe.crowd.exception.SystemErrorException;
-import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.service.AdminService;
-import com.tawe.crowd.util.CrowdUtil;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +30,12 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/do/logout.html")
+    public String doLogout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/admin/to/login/page.html";
+    }
 
     @RequestMapping("/admin/do/login.html")
     public String doLogin(@RequestParam("loginAcct") String loginAcct,
