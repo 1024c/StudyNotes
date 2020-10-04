@@ -3,6 +3,7 @@ package com.tawe.crowd.mvc.controller;
 import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.entity.Admin;
+import com.tawe.crowd.exception.LoginAcctAlreadyInUseException;
 import com.tawe.crowd.exception.LoginFailedException;
 import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.service.AdminService;
@@ -10,10 +11,7 @@ import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -31,6 +29,25 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/page/add.html")
+    public String addAdmin(Admin admin) throws LoginAcctAlreadyInUseException {
+        adminService.save(admin);
+        // 重定向到分页页面，页码设置为无穷大使当前页可以显示为新增的数据
+        return "redirect:/admin/page.html?pageNum=" + Integer.MAX_VALUE;
+    }
+
+    @RequestMapping("/admin/page/remove/{adminId}.html")
+    public String removeAdmin(
+            @PathVariable("adminId") Integer id,
+            @RequestParam(value = "keyword", defaultValue = "")String keyword,
+            @RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize) {
+        int col = adminService.removeById(id);
+        return "redirect:/admin/page.html?keyword=" + keyword
+                + "&pageNum=" + pageNum
+                + "&pageSize=" + pageSize;
+    }
 
     @RequestMapping("/admin/page.html")
     public String getAdminPage(

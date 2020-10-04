@@ -2,9 +2,7 @@ package com.tawe.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.tawe.crowd.constant.CrowdConstant;
-import com.tawe.crowd.exception.AccessForbiddenException;
-import com.tawe.crowd.exception.LoginFailedException;
-import com.tawe.crowd.exception.SystemErrorException;
+import com.tawe.crowd.exception.*;
 import com.tawe.crowd.util.CrowdUtil;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,6 +23,20 @@ import java.io.PrintWriter;
  **/
 @ControllerAdvice
 public class CrowdExceptionResolver {
+
+    @ExceptionHandler(LoginPswdIsNullException.class)
+    public ModelAndView resloveLoginPswdIsNullException(LoginPswdIsNullException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // 此处指定当前异常对应的页面即可
+        String viewName = "admin-add";
+        return resolveException(e,request, response, viewName);
+    }
+
+    @ExceptionHandler(LoginAcctAlreadyInUseException.class)
+    public ModelAndView resloveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //此处指定当前异常对应的页面即可
+        String viewName = "admin-add";
+        return resolveException(e, request, response, viewName);
+    }
 
     @ExceptionHandler(AccessForbiddenException.class)
     public ModelAndView resolveAccessForbiddenException(AccessForbiddenException e, HttpServletRequest request, HttpServletResponse response) throws IOException {

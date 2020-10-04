@@ -2,6 +2,7 @@ package com.tawe.crowd.test;
 
 import com.tawe.crowd.dao.AdminMapper;
 import com.tawe.crowd.entity.Admin;
+import com.tawe.crowd.exception.LoginAcctAlreadyInUseException;
 import com.tawe.crowd.service.AdminService;
 import com.tawe.crowd.util.CrowdUtil;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class CrowdSpringTest {
     private AdminService adminService;
 
     @Test
-    public void insertExamples() {
+    public void insertExamples() throws LoginAcctAlreadyInUseException {
         for (int i = 0; i < 200; i++) {
             Admin admin = new Admin();
             admin.setUserName("name" + i);
@@ -52,7 +53,7 @@ public class CrowdSpringTest {
     }
 
     @Test
-    public void testTx() {
+    public void testTx() throws LoginAcctAlreadyInUseException {
         Admin admin = new Admin();
         admin.setLoginAcct("lisi");
         admin.setUserName("李四");

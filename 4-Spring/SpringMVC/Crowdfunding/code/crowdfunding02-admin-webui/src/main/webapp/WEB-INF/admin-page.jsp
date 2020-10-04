@@ -26,7 +26,8 @@
                         <div class="form-group has-feedback">
                             <div class="input-group">
                                 <div class="input-group-addon">查询条件</div>
-                                <input name="keyword" class="form-control has-success" type="text" placeholder="请输入查询条件" value="${param.keyword}">
+                                <input name="keyword" class="form-control has-success" type="text"
+                                       placeholder="请输入查询条件" value="${param.keyword}">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询
@@ -35,9 +36,9 @@
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a href="admin/to/add/page.html" type="button"
+                       class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-plus"></i> 新增
+                    </a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -62,7 +63,7 @@
                                 <c:forEach items="${requestScope.pageInfo.list}" var="admin" varStatus="myStatus">
                                     <tr>
                                         <td>${mystatus.count}</td>
-                                        <td><input type="checkbox" /></td>
+                                        <td><input type="checkbox"/></td>
                                         <td>${admin.loginAcct}</td>
                                         <td>${admin.userName}</td>
                                         <td>${admin.email}</td>
@@ -73,9 +74,10 @@
                                             <button type="button" class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </button>
-                                              <button type="button" class="btn btn-danger btn-xs">
+                                            <a href="admin/page/remove/${admin.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                               type="button" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
-                                            </button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -91,14 +93,19 @@
                                         </c:if>
                                         <c:if test="${!pageInfo.isFirstPage}">
                                             <li><a href="admin/page.html?pageNum=1&keyword=${param.keyword}">首页</a></li>
-                                            <li><a href="admin/page.html?pageNum=${pageInfo.prePage}&keyword=${param.keyword}">上一页</a></li>
+                                            <li>
+                                                <a href="admin/page.html?pageNum=${pageInfo.prePage}&keyword=${param.keyword}">上一页</a>
+                                            </li>
                                         </c:if>
                                         <c:forEach items="${pageInfo.navigatepageNums}" var="pageNum">
                                             <c:if test="${pageNum == pageInfo.pageNum}">
-                                                <li class="active"><a href="javascript:void(0)">${pageNum}<span class="sr-only">(current)</span></a></li>
+                                                <li class="active"><a href="javascript:void(0)">${pageNum}<span
+                                                        class="sr-only">(current)</span></a></li>
                                             </c:if>
-                                             <c:if test="${pageNum != pageInfo.pageNum}">
-                                                <li><a href="admin/page.html?pageNum=${pageNum}&keyword=${param.keyword}">${pageNum}</a></li>
+                                            <c:if test="${pageNum != pageInfo.pageNum}">
+                                                <li>
+                                                    <a href="admin/page.html?pageNum=${pageNum}&keyword=${param.keyword}">${pageNum}</a>
+                                                </li>
                                             </c:if>
                                         </c:forEach>
                                         <c:if test="${pageInfo.isLastPage}">
@@ -106,8 +113,12 @@
                                             <li class="disabled"><a href="javascript:void(0)">末页</a></li>
                                         </c:if>
                                         <c:if test="${!pageInfo.isLastPage}">
-                                            <li><a href="admin/page.html?pageNum=${pageInfo.nextPage}&keyword=${param.keyword}">下一页</a></li>
-                                            <li><a href="admin/page.html?pageNum=${pageInfo.pages}&keyword=${param.keyword}">末页</a></li>
+                                            <li>
+                                                <a href="admin/page.html?pageNum=${pageInfo.nextPage}&keyword=${param.keyword}">下一页</a>
+                                            </li>
+                                            <li>
+                                                <a href="admin/page.html?pageNum=${pageInfo.pages}&keyword=${param.keyword}">末页</a>
+                                            </li>
                                         </c:if>
                                     </ul>
                                 </td>

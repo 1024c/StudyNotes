@@ -6,14 +6,19 @@ import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.dao.AdminMapper;
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.entity.AdminExample;
+import com.tawe.crowd.exception.LoginAcctAlreadyInUseException;
 import com.tawe.crowd.exception.LoginFailedException;
+import com.tawe.crowd.exception.LoginPswdIsNullException;
 import com.tawe.crowd.service.AdminService;
 import com.tawe.crowd.util.CrowdUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,8 +37,31 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public int save(Admin user) {
-        return adminMapper.insert(user);
+    public int save(Admin admin) throws LoginAcctAlreadyInUseException, LoginPswdIsNullException{
+        // 1. 生成当前系统时间
+        Date date = new Date();
+        String createTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        admin.setCreateTime(createTime);
+        // 2. 针对登录密码进行加密
+        String userPswd = admin.getUserPswd();
+        if (userPswd == null || userPswd.equals("")) {
+            throw new LoginPswdIsNullException(CrowdConstant.MESSAGE_LOGIN_PSWD_IS_NULL.getMsg());
+        }
+        admin.setUserPswd(CrowdUtil.md5(userPswd));
+        // 3. 执行保存
+        int cols = 0;
+        try {
+            cols = adminMapper.insert(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 检测当前捕获的异常对象，如果是 DuplicateKeyException 则说明是账号重复
+            if (e instanceof DuplicateKeyException) {
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.Message_LOGIN_ACCT_ALREADY_IN_USE.getMsg());
+            }
+            // 如果不是 DuplicateKeyException，则继续向上抛出异常
+            throw e;
+        }
+        return cols;
     }
 
     @Override
@@ -97,5 +125,10 @@ public class AdminServiceImpl implements AdminService {
         // 3. 将 AdminList 封装为 PageInfo
         PageInfo<Admin> adminPageInfo = new PageInfo<>(admins);
         return adminPageInfo;
+    }
+
+    @Override
+    public int removeById(Integer id) {
+        return adminMapper.deleteByPrimaryKey(id);
     }
 }
