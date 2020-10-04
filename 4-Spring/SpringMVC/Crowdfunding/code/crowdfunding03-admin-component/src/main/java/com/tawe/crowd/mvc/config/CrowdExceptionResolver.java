@@ -33,8 +33,16 @@ public class CrowdExceptionResolver {
 
     @ExceptionHandler(LoginAcctAlreadyInUseException.class)
     public ModelAndView resloveLoginAcctAlreadyInUseException(LoginAcctAlreadyInUseException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        String viewName = "system-error";
+        // 分别处理 add 以及 edit 页面出来的异常
+        if (CrowdConstant.ATTR_NAME_ADD.getMsg().equals(e.getStatus())) {
+            viewName = "admin-add";
+        } else if (CrowdConstant.ATTR_NAME_EDIT.getMsg().equals(e.getStatus())) {
+            // 直接返回 admin-edit 页面会丢失 admin-id， 无法带出数据
+            // viewName = "admin-edit";
+        }
         //此处指定当前异常对应的页面即可
-        String viewName = "admin-add";
         return resolveException(e, request, response, viewName);
     }
 

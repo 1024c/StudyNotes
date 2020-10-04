@@ -15,6 +15,8 @@ import java.util.List;
 public interface AdminService {
     int save(Admin user);
 
+    int saveSelective(Admin admin);
+
     List<Admin> selectAll();
 
     Admin selectById(Integer id);

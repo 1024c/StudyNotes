@@ -30,6 +30,27 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @RequestMapping("admin/page/edit/{adminId}.html")
+    public String editAdmin(Admin admin,
+            @RequestParam(value = "keyword", defaultValue = "")String keyword,
+            @RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize) {
+        int col = adminService.saveSelective(admin);
+        return "redirect:/admin/page.html?keyword=" + keyword
+                + "&pageNum=" + pageNum
+                + "&pageSize=" + pageSize;
+    }
+
+
+    @RequestMapping("/admin/to/edit/page.html")
+    public String toEditPage(@RequestParam("adminId")Integer id, ModelMap modelMap) {
+        // 1. 根据 id 查询待更新的 Admin 对象；
+        Admin admin = adminService.selectById(id);
+        // 2. 将 Admin 对象存入模型供 jsp 使用；
+        modelMap.addAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN.getMsg(), admin);
+        return "admin-edit";
+    }
+
     @RequestMapping("/admin/page/add.html")
     public String addAdmin(Admin admin) throws LoginAcctAlreadyInUseException {
         adminService.save(admin);

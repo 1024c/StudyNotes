@@ -71,11 +71,12 @@
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </button>
-                                            <button type="button" class="btn btn-primary btn-xs">
+                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                               class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
-                                            </button>
+                                            </a>
                                             <a href="admin/page/remove/${admin.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
-                                               type="button" class="btn btn-danger btn-xs">
+                                               class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
                                         </td>

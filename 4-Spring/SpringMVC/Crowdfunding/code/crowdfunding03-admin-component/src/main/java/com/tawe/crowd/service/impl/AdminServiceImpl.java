@@ -56,7 +56,24 @@ public class AdminServiceImpl implements AdminService {
             e.printStackTrace();
             // 检测当前捕获的异常对象，如果是 DuplicateKeyException 则说明是账号重复
             if (e instanceof DuplicateKeyException) {
-                throw new LoginAcctAlreadyInUseException(CrowdConstant.Message_LOGIN_ACCT_ALREADY_IN_USE.getMsg());
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.Message_LOGIN_ACCT_ALREADY_IN_USE.getMsg(), CrowdConstant.ATTR_NAME_ADD.getMsg());
+            }
+            // 如果不是 DuplicateKeyException，则继续向上抛出异常
+            throw e;
+        }
+        return cols;
+    }
+
+    @Override
+    public int saveSelective(Admin admin) {
+        int cols = 0;
+        try {
+            cols = adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 检测当前捕获的异常对象，如果是 DuplicateKeyException 则说明是账号重复
+            if (e instanceof DuplicateKeyException) {
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.Message_LOGIN_ACCT_ALREADY_IN_USE.getMsg(), CrowdConstant.ATTR_NAME_EDIT.getMsg());
             }
             // 如果不是 DuplicateKeyException，则继续向上抛出异常
             throw e;

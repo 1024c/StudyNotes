@@ -22,7 +22,11 @@ public enum CrowdConstant {
 
     ATTR_NAME_EXCEPTION("exception"),
     ATTR_NAME_LOGIN_ADMIN("admin"),
-    ATTR_NAME_PAGE_INFO("pageInfo");
+    ATTR_NAME_PAGE_INFO("pageInfo"),
+
+    ATTR_NAME_ADD("add"),
+    ATTR_NAME_EDIT("edit"),
+    ;
 
     public final String msg;
     CrowdConstant(String msg) {
