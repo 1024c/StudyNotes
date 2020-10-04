@@ -2,6 +2,7 @@ package com.tawe.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.tawe.crowd.constant.CrowdConstant;
+import com.tawe.crowd.exception.AccessForbiddenException;
 import com.tawe.crowd.exception.LoginFailedException;
 import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.util.CrowdUtil;
@@ -24,6 +25,12 @@ import java.io.PrintWriter;
  **/
 @ControllerAdvice
 public class CrowdExceptionResolver {
+
+    @ExceptionHandler(AccessForbiddenException.class)
+    public ModelAndView resolveAccessForbiddenException(AccessForbiddenException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String viewName = "admin-login";
+        return resolveException(e, request, response, viewName);
+    }
 
     @ExceptionHandler(LoginFailedException.class)
     public ModelAndView resolveLoginFailedException(LoginFailedException e, HttpServletRequest request, HttpServletResponse response) throws IOException {

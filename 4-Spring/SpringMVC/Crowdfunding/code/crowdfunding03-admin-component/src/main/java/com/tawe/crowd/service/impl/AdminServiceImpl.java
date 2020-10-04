@@ -1,5 +1,7 @@
 package com.tawe.crowd.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.dao.AdminMapper;
 import com.tawe.crowd.entity.Admin;
@@ -7,6 +9,8 @@ import com.tawe.crowd.entity.AdminExample;
 import com.tawe.crowd.exception.LoginFailedException;
 import com.tawe.crowd.service.AdminService;
 import com.tawe.crowd.util.CrowdUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +81,21 @@ public class AdminServiceImpl implements AdminService {
         }
         // 7. 如果一致则返回 admin 对象;
         return admin;
+    }
+
+    @Override
+    public PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize) {
+        // 1. 开启分页功能；
+        PageHelper.startPage(pageNum, pageSize);
+        // 2. 查询 Admin 数据；
+        List<Admin> admins = adminMapper.selectByKeyword(keyword);
+        //     2.1. 辅助代码： 打印 AdminList 的全类名；
+        System.out.println(admins);
+        Logger logger = LoggerFactory.getLogger(AdminService.class);
+        logger.info("Admin 类名：" + admins.getClass().getSimpleName());
+
+        // 3. 将 AdminList 封装为 PageInfo
+        PageInfo<Admin> adminPageInfo = new PageInfo<>(admins);
+        return adminPageInfo;
     }
 }

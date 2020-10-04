@@ -32,6 +32,11 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
+        <!--jstl-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
 
         <!-- Test scope 是不会继承的 所以要单独引入 -->
         <dependency>

@@ -1,5 +1,6 @@
 package com.tawe.crowd.service;
 
+import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.entity.Admin;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface AdminService {
     Admin selectById(Integer id);
 
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
+
+    PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize);
 }

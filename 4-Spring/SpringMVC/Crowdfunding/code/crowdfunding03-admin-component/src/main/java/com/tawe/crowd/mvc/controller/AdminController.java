@@ -1,5 +1,6 @@
 package com.tawe.crowd.mvc.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.exception.LoginFailedException;
@@ -30,6 +31,22 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/page.html")
+    public String getAdminPage(
+            // 页面上可能不提供关键词，需要使用 defaultValue 属性进行适配
+            @RequestParam(value = "keyword", defaultValue = "")String keyword,
+            @RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize,
+            ModelMap modelMap
+    ) {
+        // 查询得到分页数据；
+        PageInfo<Admin> adminPage = adminService.getAdminPage(keyword, pageNum, pageSize);
+        // 将分页数据存入模型；
+        modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO.getMsg(), adminPage);
+        // 返回主页面
+        return "admin-page";
+    }
 
     @RequestMapping("/admin/do/logout.html")
     public String doLogout(HttpSession session) {

@@ -2,8 +2,9 @@ package com.tawe.crowd.dao;
 
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.entity.AdminExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdminMapper {
     long countByExample(AdminExample example);
@@ -15,6 +16,8 @@ public interface AdminMapper {
     int insert(Admin record);
 
     int insertSelective(Admin record);
+
+    List<Admin> selectByKeyword(String keyword);
 
     List<Admin> selectByExample(AdminExample example);
 

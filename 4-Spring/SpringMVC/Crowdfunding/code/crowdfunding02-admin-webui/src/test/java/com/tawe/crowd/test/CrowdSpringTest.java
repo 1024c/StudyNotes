@@ -3,6 +3,7 @@ package com.tawe.crowd.test;
 import com.tawe.crowd.dao.AdminMapper;
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.service.AdminService;
+import com.tawe.crowd.util.CrowdUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,18 @@ public class CrowdSpringTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Test
+    public void insertExamples() {
+        for (int i = 0; i < 200; i++) {
+            Admin admin = new Admin();
+            admin.setUserName("name" + i);
+            admin.setUserPswd(CrowdUtil.md5("pswd" + i));
+            admin.setEmail("mail"+i+"@tawe.com");
+            admin.setLoginAcct("acct"+i);
+            adminService.save(admin);
+        }
+    }
 
     @Test
     public void testTx() {

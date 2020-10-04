@@ -17,7 +17,8 @@ public enum CrowdConstant {
     MESSAGE_LOGIN_FAILED_USER_NOT_UNIQUE("登录失败! 数据库中存在重复用户名!"),
     MESSAGE_STRING_INVALIDATE("字符串为空! 请重新输入!"),
 
-    ATTR_NAME_LOGIN_ADMIN("admin");
+    ATTR_NAME_LOGIN_ADMIN("admin"),
+    ATTR_NAME_PAGE_INFO("pageInfo");
 
     public final String msg;
     CrowdConstant(String msg) {

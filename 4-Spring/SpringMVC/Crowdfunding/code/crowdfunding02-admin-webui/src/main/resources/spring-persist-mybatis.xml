@@ -26,6 +26,23 @@
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!--指定 Mapper 配置文件位置-->
         <property name="mapperLocations" value="classpath:mybatis/mapper/AdminMapper.xml"/>
+
+        <!--配置 MyBatis 插件-->
+        <property name="plugins">
+            <array>
+                <!--配置 PageHelper-->
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <props>
+                            <!--配置数据库方言-->
+                            <prop key="dialect">mysql</prop>
+                            <!--配置页码合理化修正-->
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!--配置 MapperScannerConfigure-->

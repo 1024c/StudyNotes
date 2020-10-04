@@ -32,6 +32,8 @@
                 <!--Key 属性指定异常类型-->
                 <!--文本标签指定对应的逻辑视图名称-->
                 <prop key="java.lang.Exception">system-error</prop>
+
+                <!--<prop key="com.tawe.crowd.exception.AccessForbiddenException">admin-login</prop>-->
             </props>
         </property>
     </bean>
@@ -39,5 +41,20 @@
     <!--把请求地址直接与视图名称关联起来,不需要写 handler 方法了-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
-    <mvc:view-controller path="/index.html" view-name="target"/>
+    <mvc:view-controller path="/index.html" view-name="admin-main"/>
+
+    <!--注册拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--配置要拦截的资源-->
+            <mvc:mapping path="/**"/>
+            <!--配置不拦截的资源-->
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <mvc:exclude-mapping path="/admin/do/logout.html"/>
+
+            <!--拦截器类-->
+            <bean class="com.tawe.crowd.mvc.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
