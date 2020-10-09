@@ -11,8 +11,6 @@
         <module>crowdfunding02-admin-webui</module>
         <module>crowdfunding03-admin-component</module>
         <module>crowdfunding04-admin-entity</module>
-        <module>crowdfunding05-common-util</module>
-        <module>crowdfunding06-common-reverse</module>
     </modules>
     <packaging>pom</packaging>
 
