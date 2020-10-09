@@ -64,6 +64,12 @@ public class CrowdExceptionResolver {
         return resolveException(e, request, response, viewName);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ModelAndView resolveException(Exception e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String viewName = "system-error";
+        return resolveException(e, request, response, viewName);
+    }
+
     /**
      * 核心异常处理方法
      * @param e SpringMVC 捕获到的异常

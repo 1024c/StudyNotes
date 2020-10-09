@@ -84,47 +84,9 @@
                                 </c:forEach>
                             </c:if>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <c:if test="${pageInfo.isFirstPage}">
-                                            <li class="disabled"><a href="javascript:void(0)">首页</a></li>
-                                            <li class="disabled"><a href="javascript:void(0)">上一页</a></li>
-                                        </c:if>
-                                        <c:if test="${!pageInfo.isFirstPage}">
-                                            <li><a href="admin/page.html?pageNum=1&keyword=${param.keyword}">首页</a></li>
-                                            <li>
-                                                <a href="admin/page.html?pageNum=${pageInfo.prePage}&keyword=${param.keyword}">上一页</a>
-                                            </li>
-                                        </c:if>
-                                        <c:forEach items="${pageInfo.navigatepageNums}" var="pageNum">
-                                            <c:if test="${pageNum == pageInfo.pageNum}">
-                                                <li class="active"><a href="javascript:void(0)">${pageNum}<span
-                                                        class="sr-only">(current)</span></a></li>
-                                            </c:if>
-                                            <c:if test="${pageNum != pageInfo.pageNum}">
-                                                <li>
-                                                    <a href="admin/page.html?pageNum=${pageNum}&keyword=${param.keyword}">${pageNum}</a>
-                                                </li>
-                                            </c:if>
-                                        </c:forEach>
-                                        <c:if test="${pageInfo.isLastPage}">
-                                            <li class="disabled"><a href="javascript:void(0)">下一页</a></li>
-                                            <li class="disabled"><a href="javascript:void(0)">末页</a></li>
-                                        </c:if>
-                                        <c:if test="${!pageInfo.isLastPage}">
-                                            <li>
-                                                <a href="admin/page.html?pageNum=${pageInfo.nextPage}&keyword=${param.keyword}">下一页</a>
-                                            </li>
-                                            <li>
-                                                <a href="admin/page.html?pageNum=${pageInfo.pages}&keyword=${param.keyword}">末页</a>
-                                            </li>
-                                        </c:if>
-                                    </ul>
-                                </td>
-                            </tr>
-                            </tfoot>
+                            <%--设置当前页面参数,用于页码的跳转--%>
+                            <c:set var="currentPage" value="admin"/>
+                            <%@include file="include/include-tfoot.jsp" %>
                         </table>
                     </div>
                 </div>
