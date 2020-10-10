@@ -7,14 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="UTF-8">
-<%@include file="include/include-head.jsp" %>
+<%@include file="/WEB-INF/include/include-head.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-role.js"></script>--%>
+
 <body>
-<%@include file="include/include-nav.jsp" %>
+<%@include file="/WEB-INF/include/include-nav.jsp" %>
 
 <div class="container-fluid">
     <div class="row">
-        <%@include file="include/include-sidebar.jsp" %>
+        <%@include file="/WEB-INF/include/include-sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
@@ -25,14 +27,15 @@
                     <form class="form-inline" role="form" style="float:left;">
                         <div class="form-group has-feedback">
                             <div class="input-group">
-                                <div class="input-group-addon">查询条件</div>
-                                <input class="form-control has-success" type="text" placeholder="请输入查询条件">
+                                <label for="keyword" class="input-group-addon">查询条件</label>
+                                <input id="keyword" name="keyword" class="form-control has-success" type="text"
+                                       placeholder="请输入查询条件" value="${param.keyword}">
                             </div>
                         </div>
-                        <button type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;" onclick="$('#addModal').modal('show');"><i class="glyphicon glyphicon-plus" ></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -46,20 +49,37 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>8</td>
-                                <td><input type="checkbox"></td>
-                                <td>CMO / CMS - 配置管理员</td>
-                                <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>
-                                    <button type="button" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>
-                                </td>
-                            </tr>
+                            <c:if test="${empty pageInfo.list}">
+                                <tr>
+                                    <td colspan="6" align="center">未查询到相关数据</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${!empty pageInfo.list}">
+                                <c:forEach items="${pageInfo.list}" var="role" varStatus="myStatus">
+                                    <tr>
+                                        <td>${myStatus.count}</td>
+                                        <td><input type="checkbox"/></td>
+                                        <td>${role.roleName}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-xs">
+                                                <i class="glyphicon glyphicon-check"></i>
+                                            </button>
+                                            <a href="role/to/edit/page.html?roleId=${role.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                               class="btn btn-primary btn-xs">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            </a>
+                                            <a href="role/page/remove/${role.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                               class="btn btn-danger btn-xs">
+                                                <i class="glyphicon glyphicon-remove"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </c:if>
                             </tbody>
                             <%--设置当前页面参数,用于页码的跳转--%>
                             <c:set var="currentPage" value="role"/>
-                            <%@include file="include/include-tfoot.jsp" %>
+                            <%@include file="/WEB-INF/include/include-tfoot.jsp" %>
                         </table>
                     </div>
                 </div>
@@ -67,5 +87,6 @@
         </div>
     </div>
 </div>
+<%@ include file="/WEB-INF/include/modal-role-add.jsp"%>
 </body>
 </html>

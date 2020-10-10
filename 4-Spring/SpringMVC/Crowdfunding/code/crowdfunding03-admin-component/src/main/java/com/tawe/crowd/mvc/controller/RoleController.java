@@ -26,6 +26,13 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @RequestMapping("/role/page/add.html")
+    public String addRole(Role role) {
+        roleService.addRole(role);
+        // 重定向到分页页面，页码设置为无穷大使当前页可以显示为新增的数据
+        return "redirect:/role/page.html?pageNum=" + Integer.MAX_VALUE;
+    }
+
     @ResponseBody
     @RequestMapping("/role/page/get/info.json")
     public ResultEntity<PageInfo<Role>> getPageInfo(
@@ -35,9 +42,12 @@ public class RoleController {
 
         // 1. 调用 Service 方法获取分页数据;
         PageInfo<Role> pageInfo = roleService.getPageInfo(keyword, pageNum, pageSize);
+        // // 3. 创建 Gson 对象
+        // Gson gson = new Gson();
+        // // 4. 将 resultEntity 转换为 JSON 对象
+        // String pageInfoJson = gson.toJson(pageInfo);
         // 2. 封装到 ResultEntity 对象中返回 (如果上面的操作抛出异常, 交给异常映射机制处理)
         return ResultEntity.succeededWithData(pageInfo);
-
     }
 
     @RequestMapping("role/page.html")

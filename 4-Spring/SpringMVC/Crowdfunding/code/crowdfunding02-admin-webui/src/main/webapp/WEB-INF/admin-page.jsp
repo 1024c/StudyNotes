@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="UTF-8">
-<%@include file="include/include-head.jsp" %>
+<%@include file="/WEB-INF/include/include-head.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <body>
-<%@include file="include/include-nav.jsp" %>
+<%@include file="/WEB-INF/include/include-nav.jsp" %>
 
 <div class="container-fluid">
     <div class="row">
-        <%@include file="include/include-sidebar.jsp" %>
+        <%@include file="/WEB-INF/include/include-sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
@@ -56,26 +56,26 @@
                             <tbody>
                             <c:if test="${empty requestScope.pageInfo.list}">
                                 <tr>
-                                    <td colspan="2">未查询到相关数据</td>
+                                    <td colspan="6" align="center">未查询到相关数据</td>
                                 </tr>
                             </c:if>
                             <c:if test="${!empty requestScope.pageInfo.list}">
-                                <c:forEach items="${requestScope.pageInfo.list}" var="admin" varStatus="myStatus">
+                                <c:forEach items="${requestScope.pageInfo.list}" var="role" varStatus="myStatus">
                                     <tr>
-                                        <td>${mystatus.count}</td>
+                                        <td>${myStatus.count}</td>
                                         <td><input type="checkbox"/></td>
-                                        <td>${admin.loginAcct}</td>
-                                        <td>${admin.userName}</td>
-                                        <td>${admin.email}</td>
+                                        <td>${role.loginAcct}</td>
+                                        <td>${role.userName}</td>
+                                        <td>${role.email}</td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </button>
-                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                            <a href="admin/to/edit/page.html?adminId=${role.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
                                                class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <a href="admin/page/remove/${admin.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                            <a href="admin/page/remove/${role.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
                                                class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
@@ -86,7 +86,7 @@
                             </tbody>
                             <%--设置当前页面参数,用于页码的跳转--%>
                             <c:set var="currentPage" value="admin"/>
-                            <%@include file="include/include-tfoot.jsp" %>
+                            <%@include file="/WEB-INF/include/include-tfoot.jsp" %>
                         </table>
                     </div>
                 </div>

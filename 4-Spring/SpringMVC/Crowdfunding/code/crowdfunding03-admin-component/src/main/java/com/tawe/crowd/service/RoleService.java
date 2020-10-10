@@ -14,4 +14,5 @@ public interface RoleService {
     PageInfo<Role> getPageInfo(String keyword, Integer pageNum, Integer pageSize);
     Role getRoleById(Integer id);
 
+    int addRole(Role role);
 }

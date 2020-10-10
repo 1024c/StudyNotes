@@ -7,14 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="UTF-8">
-<%@include file="include/include-head.jsp" %>
+<%@include file="/WEB-INF/include/include-head.jsp" %>
 
 <body>
-<%@include file="include/include-nav.jsp" %>
+<%@include file="/WEB-INF/include/include-nav.jsp" %>
 
 <div class="container-fluid">
     <div class="row">
-        <%@include file="include/include-sidebar.jsp" %>
+        <%@include file="/WEB-INF/include/include-sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
@@ -51,7 +51,7 @@
                         </div>
                         <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> 新增
                         </button>
-                        <button type="button" class="btn btn-danger" onclick="javascript: $(':input').val('');"><i class="glyphicon glyphicon-refresh"></i> 重置
+                        <button type="button" class="btn btn-danger" onclick="$(':input').val('');"><i class="glyphicon glyphicon-refresh"></i> 重置
                         </button>
                     </form>
                 </div>
