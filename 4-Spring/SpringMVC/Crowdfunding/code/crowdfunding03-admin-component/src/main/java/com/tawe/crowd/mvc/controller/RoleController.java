@@ -8,9 +8,12 @@ import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @ClassName RoleController
@@ -25,6 +28,17 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+
+    @ResponseBody
+    @RequestMapping("role/removes.json")
+    public ResultEntity<String> removeRoles(@RequestBody List<Integer> roleIds) {
+        int col = roleService.removeRoles(roleIds);
+        if (col == 0) {
+            return ResultEntity.failed("");
+        } else {
+            return ResultEntity.succeededWithoutData();
+        }
+    }
 
     @ResponseBody
     @RequestMapping("/role/save.json")

@@ -3,6 +3,8 @@ package com.tawe.crowd.service;
 import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.entity.Role;
 
+import java.util.List;
+
 /**
  * @ClassName RoleService
  * @Description TODO
@@ -17,4 +19,6 @@ public interface RoleService {
     int addRole(Role role);
 
     int update(Role role);
+
+    int removeRoles(List<Integer> roleIds);
 }

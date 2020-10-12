@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tawe.crowd.dao.RoleMapper;
 import com.tawe.crowd.entity.Role;
+import com.tawe.crowd.entity.RoleExample;
 import com.tawe.crowd.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public int update(Role role) {
         return roleMapper.updateByPrimaryKeySelective(role);
+    }
+
+    @Override
+    public int removeRoles(List<Integer> roleIds) {
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andIdIn(roleIds);
+        int cols = roleMapper.deleteByExample(roleExample);
+        return cols;
     }
 }

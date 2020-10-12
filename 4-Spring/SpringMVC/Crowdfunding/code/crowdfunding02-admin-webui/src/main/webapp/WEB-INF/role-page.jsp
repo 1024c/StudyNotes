@@ -34,7 +34,7 @@
                         </div>
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                    <button id="deleteRoles" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
                     <%--HTML 绑定 onclick 事件--%>
                     <%--<button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;" onclick="$('#addModal').modal('show');"><i class="glyphicon glyphicon-plus" ></i> 新增</button>--%>
                     <%--js 中绑定 click 事件--%>
@@ -46,7 +46,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="selectAll" type="checkbox"></th>
                                 <th>名称</th>
                                 <th width="100">操作</th>
                             </tr>
@@ -60,7 +60,7 @@
                             <c:if test="${!empty pageInfo.list}">
                                 <c:forEach items="${pageInfo.list}" var="role" varStatus="myStatus">
                                     <tr>
-                                        <td id="roleId" name="roleId" style="display:none;">${role.id}</td>
+                                        <td name="roleId" style="display:none;">${role.id}</td>
                                         <td>${myStatus.count}</td>
                                         <td><input type="checkbox"/></td>
                                         <td name="roleName">${role.roleName}</td>
