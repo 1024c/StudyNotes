@@ -9,7 +9,7 @@
 <html lang="UTF-8">
 <%@include file="/WEB-INF/include/include-head.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-role.js"></script>--%>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-role.js"></script>
 
 <body>
 <%@include file="/WEB-INF/include/include-nav.jsp" %>
@@ -35,7 +35,10 @@
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;" onclick="$('#addModal').modal('show');"><i class="glyphicon glyphicon-plus" ></i> 新增</button>
+                    <%--HTML 绑定 onclick 事件--%>
+                    <%--<button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;" onclick="$('#addModal').modal('show');"><i class="glyphicon glyphicon-plus" ></i> 新增</button>--%>
+                    <%--js 中绑定 click 事件--%>
+                    <button id="showAddModalBtn" type="button" class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-plus" ></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -57,21 +60,20 @@
                             <c:if test="${!empty pageInfo.list}">
                                 <c:forEach items="${pageInfo.list}" var="role" varStatus="myStatus">
                                     <tr>
+                                        <td id="roleId" name="roleId" style="display:none;">${role.id}</td>
                                         <td>${myStatus.count}</td>
                                         <td><input type="checkbox"/></td>
-                                        <td>${role.roleName}</td>
+                                        <td name="roleName">${role.roleName}</td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </button>
-                                            <a href="role/to/edit/page.html?roleId=${role.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
-                                               class="btn btn-primary btn-xs">
+                                            <button id="edit${role.id}" class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
-                                            </a>
-                                            <a href="role/page/remove/${role.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
-                                               class="btn btn-danger btn-xs">
+                                            </button>
+                                            <button id="remove${role.id}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 </c:forEach>

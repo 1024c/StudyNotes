@@ -42,4 +42,9 @@ public class RoleServiceImpl implements RoleService {
     public int addRole(Role role) {
         return roleMapper.insert(role);
     }
+
+    @Override
+    public int update(Role role) {
+        return roleMapper.updateByPrimaryKeySelective(role);
+    }
 }

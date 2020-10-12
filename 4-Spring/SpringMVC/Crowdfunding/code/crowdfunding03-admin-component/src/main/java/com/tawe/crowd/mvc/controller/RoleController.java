@@ -26,6 +26,24 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
+    @ResponseBody
+    @RequestMapping("/role/save.json")
+    public ResultEntity<String> addRoleWithJson(Role role) {
+        int col = 0;
+        // 根据 roleID 判断是新增还是修改
+        if (role.getId() == null) {
+            col = roleService.addRole(role);
+        } else {
+            col = roleService.update(role);
+        }
+
+        if (col == 1) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed("Save Error");
+        }
+    }
+
     @RequestMapping("/role/page/add.html")
     public String addRole(Role role) {
         roleService.addRole(role);
@@ -50,7 +68,7 @@ public class RoleController {
         return ResultEntity.succeededWithData(pageInfo);
     }
 
-    @RequestMapping("role/page.html")
+    @RequestMapping("/role/page.html")
     public String getRolePage(
             // 页面上可能不提供关键词，需要使用 defaultValue 属性进行适配
             @RequestParam(value = "keyword", defaultValue = "")String keyword,

@@ -10,6 +10,8 @@ $(function () {
 
     // 绑定点击新增按钮打开模态框事件
     $("#showAddModalBtn").click(function () {
+        // JQuery 没有重置表单的操作, 调用 DOM 的 reset 方法
+        $("#roleForm")[0].reset();
         $("#addModal").modal("show");
     });
 
@@ -19,21 +21,23 @@ $(function () {
         // 1.1 #addModal 找到整个模态框
         // 1.2. 空格标识在后代元素中继续查找
         // 1.3. [name=roleName] 标识匹配 name 属性
-        var roleName = $.trim($("#addModal [name=roleName]").val());
-
+        const roleName = $.trim($("#addModal [name=roleName]").val());
+        const roleId = $.trim($("#addModal [name=roleId]").val());
         // 2. 发送 ajax 请求
         $.ajax({
-            url: "role/save.html",
+            url: "role/save.json",
             type: "post",
             data: {
-                "name": roleName
+                "id": roleId,
+                "roleName": roleName
             },
             dataType: "json",
             success: function (response) {
                 if (response.result === "SUCCESS") {
                     layer.msg("操作成功!");
-                    window.pageNum = 65535;
-                    let pageInfo = generatePage();
+                    // window.pageNum = 65535;
+                    // let pageInfo = generatePage();
+                    location.reload();
                 } else if (response.result === "FAILED") {
                     layer.msg("操作失败!" + response.message);
                 }
@@ -49,6 +53,21 @@ $(function () {
         // 清理模态框
         $("#addModal [name=roelName]").val("");
     });
+
+    // 绑定修改角色点击事件
+    $(".glyphicon-pencil").click(function () {
+        const roleId = $(this).closest("tr").find("[name=roleId]").text();
+        const roleName = $(this).closest("tr").find("[name=roleName]").text();
+        $("#addModal [name=roleId]").val(roleId);
+        $("#addModal [name=roleName]").val(roleName);
+        $("#addModal").modal("show");
+        // layer.msg(roleName);
+    })
+
+    // 绑定删除角色点击事件
+    $(".glyphicon-remove").click(function () {
+        // layer.msg("remove");
+    })
 });
 
 // 任何时候调用这个函数都会重新加载页面数据

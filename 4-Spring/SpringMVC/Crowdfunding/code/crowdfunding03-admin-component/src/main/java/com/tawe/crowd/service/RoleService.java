@@ -15,4 +15,6 @@ public interface RoleService {
     Role getRoleById(Integer id);
 
     int addRole(Role role);
+
+    int update(Role role);
 }
