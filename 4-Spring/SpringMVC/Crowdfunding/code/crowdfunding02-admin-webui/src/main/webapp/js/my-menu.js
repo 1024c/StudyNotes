@@ -1,17 +1,71 @@
 ﻿$(function () {
-    getMenus();
+    generateTree();
 
+    // 给生成的 按钮组 add 绑定 click 事件
     $("#treeDemo").on("click", ".addBtn", function () {
         // 将当前节点的 id ,作为新节点的 pid 保存到全局变量中
-        window.pid = this.id;
+        window.pid = $(this).data("id");
 
         // 打开模态框
         $("#menuAddModal").modal("show");
         // layer.msg("Here:" + this.id);
-    })
+    });
+
+    // 给生成的 按钮组 edit 绑定 click 事件
+    $("#treeDemo").on("click", ".editBtn", function () {
+        // 将当前节点的 id ,作为新节点的 pid 保存到全局变量中
+        window.pid = $(this).data("id");
+
+        // 打开模态框
+        $("#menuEditModal").modal("show");
+
+        // 获取 zTreeObj 对象
+        // 根据 id 属性
+    });
+
+    $("#menuSaveBtn").click(function () {
+        // 收集表单项中用户输入的数据
+        let menuName = $.trim($("#menuAddModal [name=menuName]").val());
+        let url = $.trim($("#menuAddModal [name=url]").val());
+        // 单选按钮要定位到 ”被选中“ 的那一个
+        // 通过 :radio 选择器选择 单选框
+        let icon = $("#menuAddModal :radio:checked").val();
+        // 通过 name 属性选择
+        // let icon = $("#menuAddModal [name=icon]:checked").val();
+
+        // 发送 Ajax 请求
+        $.ajax({
+            url: "menu/save.json",
+            type: "post",
+            data: {
+                "pid": window.pid,
+                "menuName": menuName,
+                "url": url,
+                "icon": icon
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.result === "SUCCESS") {
+                    layer.msg("操作成功!");
+                    // 1. 重新加载树形结构
+                    generateTree();
+                } else if (response.result === "FAILED") {
+                    layer.msg("操作失败!" + response.message);
+                }
+            },
+            error: function (response) {
+                layer.msg(response.status + "" + response.statusText);
+            },
+        })
+        // 关闭模态框
+        $("#menuAddModal").modal("hide");
+        // 清空表单
+        // 用 jQuery 调用 click() 方法
+        $("#menuResetBtn").click();
+    });
 });
 
-function getMenus() {
+function generateTree() {
     // 1. 准备生成树形结构的数据
     $.ajax({
         url: "menu/get/whole/tree.json",
@@ -70,9 +124,9 @@ function addHoverDom(treeId, treeNode) {
     }
 
     // 准备按钮的 HTML 标签
-    const addBtn = "<a id=" + treeNode.id + "_add class='addBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='新增'>&nbsp;<i class='fa fa-fw fa-plus rbg '></i></a>";
-    const editBtn = "<a id=" + treeNode.id + "_edit class='editBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='修改'>&nbsp;<i class='fa fa-fw fa-edit rbg '></i></a>";
-    const removeBtn = "<a id=" + treeNode.id + "_remove class='removeBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='删除'>&nbsp;<i class='fa fa-fw fa-times rbg '></i></a>";
+    const addBtn = "<a data-id='" + treeNode.id + "' class='addBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='新增'>&nbsp;<i class='fa fa-fw fa-plus rbg '></i></a>";
+    const editBtn = "<a data-id='" + treeNode.id + "' class='editBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='修改'>&nbsp;<i class='fa fa-fw fa-edit rbg '></i></a>";
+    const removeBtn = "<a data-id='" + treeNode.id + "' class='removeBtn btn btn-info dropdown-toggle btn-xs' style='margin-left:10px; padding-top:0px;' title='删除'>&nbsp;<i class='fa fa-fw fa-times rbg '></i></a>";
 
     // 获取当前节点的级别数据
     const level = treeNode.level;

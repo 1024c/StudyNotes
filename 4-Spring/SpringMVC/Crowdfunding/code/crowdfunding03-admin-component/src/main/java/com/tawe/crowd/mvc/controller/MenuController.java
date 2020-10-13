@@ -1,5 +1,6 @@
 package com.tawe.crowd.mvc.controller;
 
+import com.tawe.crowd.constant.CrowdConstant;
 import com.tawe.crowd.entity.Menu;
 import com.tawe.crowd.entity.MenuAll;
 import com.tawe.crowd.service.MenuService;
@@ -51,4 +52,14 @@ public class MenuController {
         return ResultEntity.succeededWithData(root);
     }
 
+    @ResponseBody
+    @RequestMapping("/menu/save.json")
+    public ResultEntity<String> saveMenu(Menu menu) {
+        int col = menuService.saveMenu(menu);
+        if (col == 1) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+    }
 }

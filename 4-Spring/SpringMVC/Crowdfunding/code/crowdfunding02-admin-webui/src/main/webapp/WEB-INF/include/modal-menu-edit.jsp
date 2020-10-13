@@ -12,7 +12,7 @@
 			</div>
 			<form>
 				<div class="modal-body">
-					请输入节点名称：<input type="text" name="name" /><br />
+					请输入节点名称：<input type="text" name="menuName" /><br />
 					请输入URL地址：<input type="text" name="url" /><br />
 					<i class="glyphicon glyphicon-th-list"></i>
 					<input type="radio" name="icon" value="glyphicon glyphicon-th-list" />&nbsp;

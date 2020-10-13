@@ -46,10 +46,10 @@ insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('9','7','广�
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('10','7','项目审核','glyphicon glyphicon-check','auth_project/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('11','1','业务管理','glyphicon glyphicon-th-large',NULL);
 insert into `t_menu`(`id`,`pid`,`menu_name`,`icon`,`url`) values ('12','11','资质维护','glyphicon glyphicon-picture','cert/index.htm');
-insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('13','11','分类管理','glyphicon glyphicon-equalizer','certtype/index.htm');
+insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('13','11','分类管理','glyphicon glyphicon-equalizer','cert_type/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('14','11','流程管理','glyphicon glyphicon-random','process/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('15','11','广告管理','glyphicon glyphicon-hdd','advert/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('16','11','消息模板','glyphicon glyphicon-comment','message/index.htm');
-insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('17','11','项目分类','glyphicon glyphicon-list','projectType/index.htm');
+insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('17','11','项目分类','glyphicon glyphicon-list','project_type/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('18','11','项目标签','glyphicon glyphicon-tags','tag/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('19','1','参数管理','glyphicon glyphicon-list-alt','param/index.htm');

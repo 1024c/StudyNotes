@@ -2,7 +2,6 @@ package com.tawe.crowd.service.impl;
 
 import com.tawe.crowd.dao.MenuMapper;
 import com.tawe.crowd.entity.Menu;
-import com.tawe.crowd.entity.MenuAll;
 import com.tawe.crowd.entity.MenuExample;
 import com.tawe.crowd.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +18,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<? extends Menu> getAll() {
         return menuMapper.selectByExample(new MenuExample());
+    }
+
+    @Override
+    public int saveMenu(Menu menu) {
+        return menuMapper.insert(menu);
     }
 }
