@@ -25,18 +25,18 @@
 
     <!--配置基于 XML 的异常映射-->
     <!--<mvc:view-controller path="/test/testA.html" view-name="target"/>-->
-    <!--<bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
-    <!--    &lt;!&ndash;指定异常类型和逻辑视图名称的对应关系&ndash;&gt;-->
-    <!--    <property name="exceptionMappings">-->
-    <!--        <props>-->
-    <!--            &lt;!&ndash;Key 属性指定异常类型&ndash;&gt;-->
-    <!--            &lt;!&ndash;文本标签指定对应的逻辑视图名称&ndash;&gt;-->
-    <!--            <prop key="java.lang.Exception">system-error</prop>-->
+    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--指定异常类型和逻辑视图名称的对应关系-->
+        <property name="exceptionMappings">
+            <props>
+                <!--Key 属性指定异常类型-->
+                <!--文本标签指定对应的逻辑视图名称-->
+                <prop key="java.lang.Exception">system-error</prop>
 
-    <!--            &lt;!&ndash;<prop key="com.tawe.crowd.exception.AccessForbiddenException">admin-login</prop>&ndash;&gt;-->
-    <!--        </props>-->
-    <!--    </property>-->
-    <!--</bean>-->
+                <!--<prop key="com.tawe.crowd.exception.AccessForbiddenException">admin-login</prop>-->
+            </props>
+        </property>
+    </bean>
 
     <!--把请求地址直接与视图名称关联起来,不需要写 handler 方法了-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
@@ -45,6 +45,8 @@
     <mvc:view-controller path="/index.html" view-name="admin-main"/>
 
     <mvc:view-controller path="/role/to/main/page.html" view-name="role-page"/>
+
+    <mvc:view-controller path="/menu/to/main/page.html" view-name="menu-page"/>
 
 
 
