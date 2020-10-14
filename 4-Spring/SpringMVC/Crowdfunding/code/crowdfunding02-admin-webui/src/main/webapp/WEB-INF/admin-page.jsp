@@ -68,7 +68,7 @@
                                         <td>${admin.userName}</td>
                                         <td>${admin.email}</td>
                                         <td>
-                                            <a href="assign/to/role/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                            <a href="assign/admin/to/role/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
                                                class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </a>

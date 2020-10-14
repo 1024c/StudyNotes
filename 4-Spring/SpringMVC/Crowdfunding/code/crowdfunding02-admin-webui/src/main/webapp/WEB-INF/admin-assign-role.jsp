@@ -9,7 +9,7 @@
 <html lang="UTF-8">
 <%@include file="include/include-head.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-assign.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-admin.js"></script>
 <body>
 <%@include file="include/include-nav.jsp" %>
 
@@ -25,12 +25,12 @@
             </ol>
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form role="form" class="form-inline">
-                        <input type="hidden" id="adminId" name="adminId" value="${admin.id}"/>
+                    <form id="adminAssignRoleForm" role="form" class="form-inline">
+                        <input type="hidden" id="adminId" name="adminId" value="${requestScope.adminId}"/>
                         <div class="form-group">
                             <label for="unAssignedRoles">未分配角色列表</label><br>
                             <select id="unAssignedRoles" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
-                                <c:forEach items="${unAssignedRoles}" var="role" varStatus="myStatus">
+                                <c:forEach items="${requestScope.unAssignedRoles}" var="role" varStatus="myStatus">
                                     <option value="${role.id}">${role.roleName}</option>
                                 </c:forEach>
                             </select>
@@ -44,8 +44,8 @@
                         </div>
                         <div class="form-group" style="margin-left:40px;">
                             <label for="assignedRoles">已分配角色列表</label><br>
-                            <select id="assignedRoles" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
-                                <c:forEach items="${assignedRoles}" var="role" varStatus="myStatus">
+                            <select id="assignedRoles" name="roleIds" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
+                                <c:forEach items="${requestScope.assignedRoles}" var="role" varStatus="myStatus">
                                     <option value="${role.id}">${role.roleName}</option>
                                 </c:forEach>
                             </select>

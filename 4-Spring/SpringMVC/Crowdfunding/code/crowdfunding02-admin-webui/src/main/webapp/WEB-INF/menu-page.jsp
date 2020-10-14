@@ -26,7 +26,7 @@
                             class="glyphicon glyphicon-question-sign"></i></div>
                 </div>
                 <div class="panel-body">
-                    <ul id="treeDemo" class="ztree">
+                    <ul id="menuTree" class="ztree">
                     </ul>
                 </div>
             </div>

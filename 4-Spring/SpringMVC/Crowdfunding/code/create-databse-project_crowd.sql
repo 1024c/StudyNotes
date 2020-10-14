@@ -1,9 +1,9 @@
-create database project_crowd;
-use project_crowd;
+create database `project_crowd`;
+use `project_crowd`;
 
 # 创建 Admin 表
-drop table if exists t_admin;
-create table t_admin
+drop table if exists `t_admin`;
+create table `t_admin`
 (
     id int not null auto_increment,     #主键
     login_acct varchar(255) not null,   #登录账号
@@ -15,8 +15,8 @@ create table t_admin
 );
 
 # 创建 Role 表
-drop table if exists t_role;
-create table t_role
+drop table if exists `t_role`;
+create table `t_role`
 (
     id int not null auto_increment,     #主键
     role_name varchar(255) not null,    #角色名称
@@ -24,8 +24,8 @@ create table t_role
 );
 
 # 创建 Menu 表
-drop table if exists t_menu;
-create table t_menu
+drop table if exists `t_menu`;
+create table `t_menu`
 (
     id int not null auto_increment,     #主键
     pid int,                            #父节点
@@ -48,7 +48,7 @@ insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('8','7','实�
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('9','7','广告审核','glyphicon glyphicon-check','auth_adv/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('10','7','项目审核','glyphicon glyphicon-check','auth_project/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('11','1','业务管理','glyphicon glyphicon-th-large',NULL);
-insert into `t_menu`(`id`,`pid`,`menu_name`,`icon`,`url`) values ('12','11','资质维护','glyphicon glyphicon-picture','cert/index.htm');
+insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('12','11','资质维护','glyphicon glyphicon-picture','cert/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('13','11','分类管理','glyphicon glyphicon-equalizer','cert_type/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('14','11','流程管理','glyphicon glyphicon-random','process/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('15','11','广告管理','glyphicon glyphicon-hdd','advert/index.htm');
@@ -58,9 +58,26 @@ insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('18','11','�
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('19','1','参数管理','glyphicon glyphicon-list-alt','param/index.htm');
 
 # 创建 Admin-Role 中间表
-drop table if exists inner_admin_role;
-create table inner_admin_role (
+drop table if exists `inner_admin_role`;
+create table `inner_admin_role` (
     admin_id int not null,          #用户 ID
     role_id int not null,           #角色 ID
     primary key(admin_id, role_id)  #使用联合主键
-)
+);
+
+# 创建 Auth 表
+CREATE TABLE `t_auth` (
+    id int(11) NOT NULL AUTO_INCREMENT,
+    auth_name varchar(200) DEFAULT NULL,
+    title varchar(200) DEFAULT NULL,
+    category_id int(11) DEFAULT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(1,'','用户模块',NULL);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(2,'user:delete','删除',1);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(3,'user:get','查询',1);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(4,'','角色模块',NULL);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(5,'role:delete','删除',4);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(6,'role:get','查询',4);
+INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(7,'role:add','新增',4);

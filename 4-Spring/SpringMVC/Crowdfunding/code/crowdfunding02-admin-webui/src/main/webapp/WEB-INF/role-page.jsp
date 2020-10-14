@@ -10,6 +10,8 @@
 <%@include file="/WEB-INF/include/include-head.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/my-role.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/zTreeStyle.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/ztree/jquery.ztree.all-3.5.min.js"></script>
 
 <body>
 <%@include file="/WEB-INF/include/include-nav.jsp" %>
@@ -65,13 +67,13 @@
                                         <td><input type="checkbox"/></td>
                                         <td name="roleName">${admin.roleName}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-xs">
+                                            <button type="button" class="assignAuthBtn btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </button>
-                                            <button id="edit${admin.id}" class="btn btn-primary btn-xs">
+                                            <button id="edit${admin.id}" class="editBtn btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </button>
-                                            <button id="remove${admin.id}" class="btn btn-danger btn-xs">
+                                            <button id="remove${admin.id}" class="removeBtn btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </button>
                                         </td>
@@ -90,5 +92,6 @@
     </div>
 </div>
 <%@ include file="/WEB-INF/include/modal-role-add.jsp"%>
+<%@ include file="/WEB-INF/include/modal-role-assign-auth.jsp"%>
 </body>
 </html>

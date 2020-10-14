@@ -30,7 +30,7 @@ public class RoleController {
     private RoleService roleService;
 
     @ResponseBody
-    @RequestMapping("role/removes.json")
+    @RequestMapping("/role/removes.json")
     public ResultEntity<String> removeRoles(@RequestBody List<Integer> roleIds) {
         int col = roleService.removeRoles(roleIds);
         if (col == 0) {

@@ -2,7 +2,7 @@
     generateTree();
 
     // 给生成的 按钮组 add 绑定 click 事件
-    $("#treeDemo").on("click", ".addBtn", function () {
+    $("#menuTree").on("click", ".addBtn", function () {
         // 将当前节点的 id ,作为新节点的 pid 保存到全局变量中
         window.pid = $(this).data("id");
 
@@ -54,7 +54,7 @@
     });
 
     // 给生成的 按钮组 edit 绑定 click 事件
-    $("#treeDemo").on("click", ".editBtn", function () {
+    $("#menuTree").on("click", ".editBtn", function () {
         // 将当前节点的 id 保存到全局变量中
         window.id = $(this).data("id");
 
@@ -62,7 +62,7 @@
         $("#menuEditModal").modal("show");
 
         // 获取 zTreeObj 对象
-        const zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        const zTreeObj = $.fn.zTree.getZTreeObj("menuTree");
         // 根据 id 属性获取当前 zTree 节点的属性
         const curNode = zTreeObj.getNodeByParam("id", window.id);
 
@@ -114,7 +114,7 @@
     });
 
     // 给生成的 按钮组 remove 绑定 click 事件
-    $("#treeDemo").on("click", ".removeBtn", function () {
+    $("#menuTree").on("click", ".removeBtn", function () {
         // 将当前节点的 id 保存到全局变量中
         window.id = $(this).data("id");
 
@@ -122,7 +122,7 @@
         $("#menuConfirmModal").modal("show");
 
         // 获取 zTreeObj 对象
-        const zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        const zTreeObj = $.fn.zTree.getZTreeObj("menuTree");
         // 根据 id 属性获取当前 zTree 节点的属性
         const curNode = zTreeObj.getNodeByParam("id", window.id);
 
@@ -185,7 +185,7 @@ function generateTree() {
                 // 2. 准备生成树形结构的 JSON 数据
                 let zNodes = response.data;
                 // 3. 初始化树形结构
-                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                $.fn.zTree.init($("#menuTree"), setting, zNodes);
 
             } else {
                 layer.msg(response.message);

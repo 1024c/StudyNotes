@@ -1,9 +1,12 @@
 package com.tawe.crowd.test;
 
 import com.tawe.crowd.dao.AdminMapper;
+import com.tawe.crowd.dao.RoleMapper;
 import com.tawe.crowd.entity.Admin;
+import com.tawe.crowd.entity.Role;
 import com.tawe.crowd.exception.LoginAcctAlreadyInUseException;
 import com.tawe.crowd.service.AdminService;
+import com.tawe.crowd.service.RoleService;
 import com.tawe.crowd.util.CrowdUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +41,22 @@ public class CrowdSpringTest {
     private AdminMapper adminMapper;
 
     @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private AdminService adminService;
+
+    @Test
+    public void insertRoles() throws LoginAcctAlreadyInUseException {
+        for (int i = 0; i < 200; i++) {
+            Role role = new Role();
+            role.setRoleName("role"+i);
+            roleService.addRole(role);
+        }
+    }
 
     @Test
     public void insertExamples() throws LoginAcctAlreadyInUseException {

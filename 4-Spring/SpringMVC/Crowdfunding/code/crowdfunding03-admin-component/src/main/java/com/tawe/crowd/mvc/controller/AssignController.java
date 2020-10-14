@@ -1,8 +1,10 @@
 package com.tawe.crowd.mvc.controller;
 
 import com.tawe.crowd.constant.CrowdConstant;
+import com.tawe.crowd.entity.Auth;
 import com.tawe.crowd.entity.Role;
 import com.tawe.crowd.service.AssignService;
+import com.tawe.crowd.service.AuthService;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +19,33 @@ public class AssignController {
     @Autowired
     private AssignService assignService;
 
+    @Autowired
+    private AuthService authService;
+
     @ResponseBody
-    @RequestMapping("/assign/{adminId}/remove.json")
+    @RequestMapping("/assign/role/to/auth/get.json")
+    public ResultEntity<List<Auth>> getAllAuths() {
+        List<Auth> auths = authService.getAllAuths();
+        return ResultEntity.succeededWithData(auths);
+    }
+
+    // 前端通过 Ajax 请求直接发送 form 表单提交
+    @ResponseBody
+    @RequestMapping("/assign/admin/to/role/remove.json")
+    public ResultEntity<String> removeRolesWithForm(
+            @RequestParam("adminId") Integer adminId,
+            @RequestParam("roleIds") List<Integer> roleIds) {
+        int cols = assignService.removeRoles(adminId, roleIds);
+        if (cols > 0) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+    }
+
+    // 前端手动收集提交的数据 使用 ajax 发送请求 => 已被上面的 form ajax 请求替代
+    @ResponseBody
+    @RequestMapping("/assign/admin/to/role/{adminId}/remove.json")
     public ResultEntity<String> removeRoles(
             @PathVariable("adminId") Integer adminId,
             @RequestBody List<Integer> roleIds) {
@@ -32,7 +59,21 @@ public class AssignController {
     }
 
     @ResponseBody
-    @RequestMapping("/assign/{adminId}/add.json")
+    @RequestMapping("/assign/admin/to/role/add.json")
+    public ResultEntity<String> addRolesWithForm(
+            @RequestParam("adminId") Integer adminId,
+            @RequestParam("roleIds") List<Integer> roleIds) {
+        int cols = assignService.addRoles(adminId, roleIds);
+        if (cols > 0) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/admin/assign/to/role/{adminId}/add.json")
     public ResultEntity<String> addRoles(
             @PathVariable("adminId") Integer adminId,
             @RequestBody List<Integer> roleIds) {
@@ -45,7 +86,7 @@ public class AssignController {
 
     }
 
-    @RequestMapping("/assign/to/role/page.html")
+    @RequestMapping("/assign/admin/to/role/page.html")
     public String toAssignRolePage (
             @RequestParam("adminId") Integer adminId,
             @RequestParam(value = "keyword", defaultValue = "")String keyword,
@@ -61,6 +102,6 @@ public class AssignController {
         modelMap.addAttribute("adminId", adminId);
         modelMap.addAttribute("assignedRoles", assignedRoles);
         modelMap.addAttribute("unAssignedRoles", unAssignedRoles);
-        return "assign-role";
+        return "admin-assign-role";
     }
 }

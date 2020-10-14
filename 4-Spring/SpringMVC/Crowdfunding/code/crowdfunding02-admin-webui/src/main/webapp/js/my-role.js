@@ -54,27 +54,25 @@ $(function () {
     });
 
     // 绑定修改角色点击事件
-    $(".glyphicon-pencil").click(function () {
+    $(".editBtn").click(function () {
         const roleId = $(this).closest("tr").find("[name=roleId]").text();
         const roleName = $(this).closest("tr").find("[name=roleName]").text();
         $("#addModal [name=roleId]").val(roleId);
         $("#addModal [name=roleName]").val(roleName);
         $("#addModal").modal("show");
         // layer.msg(roleName);
-    })
-
-
+    });
 
     // 删除的全选&全不选逻辑 - selectAll checkbox
     $("#selectAll").click(function () {
         $("tbody input:checkbox").prop("checked", this.checked);
-    })
+    });
     // 删除的全选&全不选逻辑 - eachone checkbox
     $("tbody input:checkbox").click(function () {
         // 这个判断太 6 了
         // 通过选中的个数和总个数进行比较,如果全选则相等,此时条件为 true, 可以直接给 selectAll 赋值
         $("#selectAll").prop("checked", $("tbody input:checkbox").length === $("tbody input:checkbox:checked").length)
-    })
+    });
 
     // 删除数组中的所有 role
     function removeSelected(roleIds) {
@@ -99,7 +97,7 @@ $(function () {
 
                 layer.msg(response.status + "" + response.statusText);
             },
-        })
+        });
     }
     // 选中删除
     $("#deleteRoles").click(function () {
@@ -114,6 +112,7 @@ $(function () {
             roleNames += roleName + "<br\>";
         })
         if (roleIds.length === 0) {
+            layer.msg("请至少选择一条记录进行删除...");
             return;
         }
         layer.confirm("确定删除以下记录:<br\>" + roleNames, {
@@ -122,10 +121,10 @@ $(function () {
                 removeSelected(roleIds);
             }
         })
-    })
+    });
     // 单个删除
     // 绑定删除角色点击事件
-    $(".glyphicon-remove").click(function () {
+    $(".removeBtn").click(function () {
         // layer.msg("remove");
         let roleId = []
         roleId.push($(this).closest("tr").find("[name=roleId]").text());
@@ -135,8 +134,64 @@ $(function () {
                 removeSelected(roleId);
             }
         })
-    })
+    });
+
+    // 绑定增加权限点击事件
+    $(".assignAuthBtn").click(function () {
+        $("#roleAssignAuthModal").modal("show");
+
+        // 加载 zTree 数据
+        generateAuthTree();
+    });
 });
+
+// 用于分配 Auth 的模态框中显示 Auth 树形结构
+function generateAuthTree() {
+    // 1. 发送 Ajax 请求查询 Auth 数据
+    let ajaxReturn = $.ajax({
+        url: "assign/role/to/auth/get.json",
+        type: "post",
+        dataType: "json",
+        async: false
+    });
+    if (ajaxReturn.status != 200) {
+        layer.msg("请求出错！响应状态码为：" + ajaxReturn.status
+            + "<br/>错误信息：" + ajaxReturn.statusText);
+        return;
+    }
+
+    // 2. 查询到的 list 结构不需要要组装， 交给 zTree 去组装
+        // 需要设置 simpleData 为 true
+    let auths = ajaxReturn.responseJSON.data;
+
+    // 3. 准备对 zTree 进行设置 JSON 对象
+    const setting = {
+        data: {
+            simpleData: {
+                // 开启简单 JSON 数据功能
+                enable: true,
+                // 使用 categoryId 属性关联父节点， 默认为 pId
+                pIdKey: "categoryId"
+            },
+            key: {
+                // 默认使用 name 属性显示
+                name: "title"
+            }
+        },
+        check: {
+            enable: true
+        }
+    };
+    // 4. 生成树形结构
+    $.fn.zTree.init($("#authTree"), setting, auths);
+
+    // 树形结构默认展开
+    let zTreeObj = $.fn.zTree.getZTreeObj("authTree");
+    zTreeObj.expandAll(true);
+
+    // 5. 查询已分配的 Auth 的 id 组成的数组
+    // 6. 根据 authIdArray 把树型结构中的节点勾选上
+}
 
 // 任何时候调用这个函数都会重新加载页面数据
 // 远程访问服务端 pageInfo 数据
