@@ -6,19 +6,47 @@ import com.tawe.crowd.entity.MenuAll;
 import com.tawe.crowd.service.MenuService;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 public class MenuController {
 
     @Autowired
     private MenuService menuService;
 
-    @ResponseBody
+    @RequestMapping("/menu/page.html")
+    public ModelAndView getMenu() {
+        return new ModelAndView("forward:/menu/to/main/page.html");
+    }
+
+    @RequestMapping("/menu/remove.json")
+    public ResultEntity<String> removeMenu(Integer id) {
+        int col = menuService.removeMenu(id);
+        if (col == 1) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+    }
+
+    @RequestMapping("/menu/update.json")
+    public ResultEntity<String> updateMenu(@RequestBody Menu menu) {
+        int col = menuService.updateMenu(menu);
+        if (col == 1) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+    }
+
     @RequestMapping("/menu/get/whole/tree.json")
     public ResultEntity<MenuAll> getWholeTreeView() {
         // 1. 查询全部的 Menu 对象
@@ -52,7 +80,6 @@ public class MenuController {
         return ResultEntity.succeededWithData(root);
     }
 
-    @ResponseBody
     @RequestMapping("/menu/save.json")
     public ResultEntity<String> saveMenu(Menu menu) {
         int col = menuService.saveMenu(menu);

@@ -2,6 +2,7 @@ package com.tawe.crowd.dao;
 
 import com.tawe.crowd.entity.Admin;
 import com.tawe.crowd.entity.AdminExample;
+import com.tawe.crowd.entity.Role;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

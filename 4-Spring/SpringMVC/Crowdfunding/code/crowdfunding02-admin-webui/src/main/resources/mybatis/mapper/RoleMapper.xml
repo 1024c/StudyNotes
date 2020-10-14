@@ -129,7 +129,7 @@
     select
     <include refid="Base_Column_List" />
     from t_role
-    where role_name like CONCAT("%", #{keyword}, "%")
+    where role_name like CONCAT('%', #{keyword}, '%')
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update t_role

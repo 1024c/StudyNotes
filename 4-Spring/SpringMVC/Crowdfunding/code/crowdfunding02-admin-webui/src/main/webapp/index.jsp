@@ -25,7 +25,7 @@
                     //     id: 1
                     // },
                     data: arrayStr,
-                    contentType: "application/json;charset=UTF-8",
+                    contentType: "application/json; charset=UTF-8",
                     success: function (response) {
                         alert(response.data);
                         // layer.msg(response.data);

@@ -9,4 +9,8 @@ public interface MenuService {
     List<? extends Menu> getAll();
 
     int saveMenu(Menu menu);
+
+    int updateMenu(Menu menu);
+
+    int removeMenu(Integer id);
 }

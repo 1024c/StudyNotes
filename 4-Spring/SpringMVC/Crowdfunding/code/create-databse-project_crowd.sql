@@ -1,6 +1,7 @@
 create database project_crowd;
 use project_crowd;
 
+# 创建 Admin 表
 drop table if exists t_admin;
 create table t_admin
 (
@@ -13,6 +14,7 @@ create table t_admin
     primary key(id)
 );
 
+# 创建 Role 表
 drop table if exists t_role;
 create table t_role
 (
@@ -21,6 +23,7 @@ create table t_role
     primary key(id)
 );
 
+# 创建 Menu 表
 drop table if exists t_menu;
 create table t_menu
 (
@@ -53,3 +56,11 @@ insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('16','11','�
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('17','11','项目分类','glyphicon glyphicon-list','project_type/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('18','11','项目标签','glyphicon glyphicon-tags','tag/index.htm');
 insert into `t_menu` (`id`,`pid`,`menu_name`,`icon`,`url`) values ('19','1','参数管理','glyphicon glyphicon-list-alt','param/index.htm');
+
+# 创建 Admin-Role 中间表
+drop table if exists inner_admin_role;
+create table inner_admin_role (
+    admin_id int not null,          #用户 ID
+    role_id int not null,           #角色 ID
+    primary key(admin_id, role_id)  #使用联合主键
+)

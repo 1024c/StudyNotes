@@ -11,18 +11,7 @@
         // layer.msg("Here:" + this.id);
     });
 
-    // 给生成的 按钮组 edit 绑定 click 事件
-    $("#treeDemo").on("click", ".editBtn", function () {
-        // 将当前节点的 id ,作为新节点的 pid 保存到全局变量中
-        window.pid = $(this).data("id");
-
-        // 打开模态框
-        $("#menuEditModal").modal("show");
-
-        // 获取 zTreeObj 对象
-        // 根据 id 属性
-    });
-
+    // 保存 新增 menu
     $("#menuSaveBtn").click(function () {
         // 收集表单项中用户输入的数据
         let menuName = $.trim($("#menuAddModal [name=menuName]").val());
@@ -49,7 +38,7 @@
                     layer.msg("操作成功!");
                     // 1. 重新加载树形结构
                     generateTree();
-                } else if (response.result === "FAILED") {
+                } else if (response.result === "FAILURE") {
                     layer.msg("操作失败!" + response.message);
                 }
             },
@@ -62,6 +51,111 @@
         // 清空表单
         // 用 jQuery 调用 click() 方法
         $("#menuResetBtn").click();
+    });
+
+    // 给生成的 按钮组 edit 绑定 click 事件
+    $("#treeDemo").on("click", ".editBtn", function () {
+        // 将当前节点的 id 保存到全局变量中
+        window.id = $(this).data("id");
+
+        // 打开模态框
+        $("#menuEditModal").modal("show");
+
+        // 获取 zTreeObj 对象
+        const zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        // 根据 id 属性获取当前 zTree 节点的属性
+        const curNode = zTreeObj.getNodeByParam("id", window.id);
+
+        // 回显表单数据
+        $("#menuEditModal [name=menuName]").val(curNode.menuName);
+        $("#menuEditModal [name=url]").val(curNode.url);
+        // radio 回显可以通过 value 属性进行设置, 就像 checkbox 读取值时一样, 读出来的就是一个 value 数组
+        $("#menuEditModal :radio").val([curNode.icon]);
+    });
+
+    // 更新 修改 menu
+    $("#menuEditBtn").click(function () {
+        // 收集表单项中用户输入的数据
+        let menuName = $.trim($("#menuEditModal [name=menuName]").val());
+        let url = $.trim($("#menuEditModal [name=url]").val());
+        // 单选按钮要定位到 ”被选中“ 的那一个
+        // 通过 :radio 选择器选择 单选框
+        let icon = $("#menuEditModal :radio:checked").val();
+        // 通过 name 属性选择
+        // let icon = $("#menuAddModal [name=icon]:checked").val();
+
+        // 发送 Ajax 请求
+        $.ajax({
+            url: "menu/update.json",
+            type: "post",
+            data: JSON.stringify({
+                "id": window.id,
+                "menuName": menuName,
+                "url": url,
+                "icon": icon
+            }),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.result === "SUCCESS") {
+                    layer.msg("操作成功!");
+                    // 1. 重新加载树形结构
+                    generateTree();
+                } else if (response.result === "FAILURE") {
+                    layer.msg("操作失败!" + response.message);
+                }
+            },
+            error: function (response) {
+                layer.msg(response.status + "" + response.statusText);
+            },
+        })
+        // 关闭模态框
+        $("#menuEditModal").modal("hide");
+    });
+
+    // 给生成的 按钮组 remove 绑定 click 事件
+    $("#treeDemo").on("click", ".removeBtn", function () {
+        // 将当前节点的 id 保存到全局变量中
+        window.id = $(this).data("id");
+
+        // 打开模态框
+        $("#menuConfirmModal").modal("show");
+
+        // 获取 zTreeObj 对象
+        const zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+        // 根据 id 属性获取当前 zTree 节点的属性
+        const curNode = zTreeObj.getNodeByParam("id", window.id);
+
+        // 设置删除提示信息
+        $("#menuConfirmModal #removeNodeSpan").html(" 【 <i class='" + curNode.icon + "'></i>" + curNode.menuName + " 】 ");
+    });
+
+    // 提交 删除 menu
+    $("#confirmBtn").click(function () {
+
+        // 发送 Ajax 请求
+        $.ajax({
+            url: "menu/remove.json",
+            type: "post",
+            data: {
+                "id": window.id
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.result === "SUCCESS") {
+                    layer.msg("操作成功!");
+                    // 1. 重新加载树形结构
+                    generateTree();
+                } else if (response.result === "FAILURE") {
+                    layer.msg("操作失败!" + response.message);
+                }
+            },
+            error: function (response) {
+                layer.msg(response.status + "" + response.statusText);
+            },
+        })
+        // 关闭模态框
+        $("#menuConfirmModal").modal("hide");
     });
 });
 

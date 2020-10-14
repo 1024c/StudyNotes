@@ -162,9 +162,9 @@
         select
         <include refid="Base_Column_List"/>
         from t_admin
-        where login_acct like CONCAT("%", #{keyword}, "%")
-            or user_name like CONCAT("%", #{keyword}, "%")
-            or email like CONCAT("%", #{keyword}, "%")
+        where login_acct like CONCAT('%', #{keyword}, '%')
+            or user_name like CONCAT('%', #{keyword}, '%')
+            or email like CONCAT('%', #{keyword}, '%')
     </select>
     <update id="updateByExampleSelective" parameterType="map">
         update t_admin

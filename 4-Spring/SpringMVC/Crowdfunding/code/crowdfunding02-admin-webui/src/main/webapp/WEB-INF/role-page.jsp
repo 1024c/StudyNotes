@@ -58,20 +58,20 @@
                                 </tr>
                             </c:if>
                             <c:if test="${!empty pageInfo.list}">
-                                <c:forEach items="${pageInfo.list}" var="role" varStatus="myStatus">
+                                <c:forEach items="${pageInfo.list}" var="admin" varStatus="myStatus">
                                     <tr>
-                                        <td name="roleId" style="display:none;">${role.id}</td>
+                                        <td name="roleId" style="display:none;">${admin.id}</td>
                                         <td>${myStatus.count}</td>
                                         <td><input type="checkbox"/></td>
-                                        <td name="roleName">${role.roleName}</td>
+                                        <td name="roleName">${admin.roleName}</td>
                                         <td>
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
                                             </button>
-                                            <button id="edit${role.id}" class="btn btn-primary btn-xs">
+                                            <button id="edit${admin.id}" class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </button>
-                                            <button id="remove${role.id}" class="btn btn-danger btn-xs">
+                                            <button id="remove${admin.id}" class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </button>
                                         </td>

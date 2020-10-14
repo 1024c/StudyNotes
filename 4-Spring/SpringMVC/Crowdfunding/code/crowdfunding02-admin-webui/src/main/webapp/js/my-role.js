@@ -37,7 +37,7 @@ $(function () {
                     // window.pageNum = 65535;
                     // let pageInfo = generatePage();
                     location.reload();
-                } else if (response.result === "FAILED") {
+                } else if (response.result === "FAILURE") {
                     layer.msg("操作失败!" + response.message);
                 }
 
@@ -82,7 +82,7 @@ $(function () {
             url: "role/removes.json",
             type: "post",
             data: JSON.stringify(roleIds),
-            contentType: "application/json;charset=UTF-8",
+            contentType: "application/json; charset=UTF-8",
             dataType: "json",
             success: function (response) {
                 if (response.result === "SUCCESS") {
@@ -90,7 +90,7 @@ $(function () {
                     // window.pageNum = 65535;
                     // let pageInfo = generatePage();
                     location.reload();
-                } else if (response.result === "FAILED") {
+                } else if (response.result === "FAILURE") {
                     layer.msg("操作失败!" + response.message);
                 }
 
@@ -152,7 +152,7 @@ function generatePage() {
         },
         async: true,
         dataType: "json",
-        contentType: "application/json;charset=utf-8",
+        contentType: "application/json; charset=UTF-8",
         success: function (data) {
             return data.data;
         },

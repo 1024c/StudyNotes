@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tawe.crowd.dao.AssignMapper">
+    <insert id="insertRole">
+        insert into inner_admin_role values(#{adminId}, #{roleId})
+    </insert>
+    <delete id="deleteRole">
+        delete from inner_admin_role where admin_id = #{adminId} and role_id = #{roleId}
+    </delete>
+
+    <!--select r.id, r.role_name from t_role r right join inner_admin_role iar on r.id = iar.role_id where iar.admin_id = #{adminId}-->
+    <select id="getAssignedRoles" resultType="com.tawe.crowd.entity.Role">
+        select id, role_name from t_role where id in (select role_id from inner_admin_role where admin_id = #{adminId})
+    </select>
+    <!--select r.id, r.role_name from t_role r left join inner_admin_role iar on r.id = iar.role_id where iar.admin_id is null or iar.admin_id != #{adminId}-->
+    <select id="getUnAssignedRoles" resultType="com.tawe.crowd.entity.Role">
+        select id, role_name from t_role where id not in (select role_id from inner_admin_role where admin_id = #{adminId})
+    </select>
+</mapper>

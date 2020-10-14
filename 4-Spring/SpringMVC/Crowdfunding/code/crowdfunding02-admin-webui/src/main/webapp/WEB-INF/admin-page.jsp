@@ -60,22 +60,23 @@
                                 </tr>
                             </c:if>
                             <c:if test="${!empty requestScope.pageInfo.list}">
-                                <c:forEach items="${requestScope.pageInfo.list}" var="role" varStatus="myStatus">
+                                <c:forEach items="${requestScope.pageInfo.list}" var="admin" varStatus="myStatus">
                                     <tr>
                                         <td>${myStatus.count}</td>
                                         <td><input type="checkbox"/></td>
-                                        <td>${role.loginAcct}</td>
-                                        <td>${role.userName}</td>
-                                        <td>${role.email}</td>
+                                        <td>${admin.loginAcct}</td>
+                                        <td>${admin.userName}</td>
+                                        <td>${admin.email}</td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-xs">
+                                            <a href="assign/to/role/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                               class="btn btn-success btn-xs">
                                                 <i class="glyphicon glyphicon-check"></i>
-                                            </button>
-                                            <a href="admin/to/edit/page.html?adminId=${role.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                            </a>
+                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
                                                class="btn btn-primary btn-xs">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                             </a>
-                                            <a href="admin/page/remove/${role.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
+                                            <a href="admin/page/remove/${admin.id}.html?keyword=${param.keyword}&pageNum=${pageInfo.pageNum}&pageSize=${pageInfo.pageSize}"
                                                class="btn btn-danger btn-xs">
                                                 <i class="glyphicon glyphicon-remove"></i>
                                             </a>
