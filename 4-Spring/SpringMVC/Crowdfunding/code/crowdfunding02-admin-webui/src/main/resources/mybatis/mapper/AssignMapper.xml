@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tawe.crowd.dao.AssignMapper">
-    <insert id="insertRole">
-        insert into inner_admin_role values(#{adminId}, #{roleId})
+    <insert id="insertAssignedRolesByAdminId" parameterType="list">
+        insert into inner_admin_role
+        values
+            <foreach separator="," collection="roleIds" item="roleId">
+                (#{adminId}, #{roleId})
+            </foreach>
     </insert>
-    <delete id="deleteRole">
-        delete from inner_admin_role where admin_id = #{adminId} and role_id = #{roleId}
+    <delete id="deleteAssignedRolesByAdminId" parameterType="list">
+        delete from inner_admin_role
+        where
+            <foreach separator="or" collection="roleIds" item="roleId">
+              (admin_id = #{adminId} and role_id = #{roleId})
+            </foreach>
+    </delete>
+
+    <insert id="insertAssignedAuthsByRoleId" parameterType="list">
+        insert into inner_role_auth
+        values
+            <foreach separator="," collection="authIds" item="authId">
+                (#{roleId}, #{authId})
+            </foreach>
+    </insert>
+
+    <delete id="deleteAssignedAuthsByRoleId" parameterType="list">
+        delete from inner_role_auth
+        where
+            <foreach separator="or" collection="authIds" item="authId">
+                (role_id = #{roleId} and auth_id = #{authId})
+            </foreach>
     </delete>
 
     <!--select r.id, r.role_name from t_role r right join inner_admin_role iar on r.id = iar.role_id where iar.admin_id = #{adminId}-->
     <select id="getAssignedRoles" resultType="com.tawe.crowd.entity.Role">
-        select id, role_name from t_role where id in (select role_id from inner_admin_role where admin_id = #{adminId})
+        select id, role_name from t_role
+            where id in (select role_id from inner_admin_role where admin_id = #{adminId})
     </select>
     <!--select r.id, r.role_name from t_role r left join inner_admin_role iar on r.id = iar.role_id where iar.admin_id is null or iar.admin_id != #{adminId}-->
     <select id="getUnAssignedRoles" resultType="com.tawe.crowd.entity.Role">
-        select id, role_name from t_role where id not in (select role_id from inner_admin_role where admin_id = #{adminId})
+        select id, role_name from t_role
+            where id not in (select role_id from inner_admin_role where admin_id = #{adminId})
+    </select>
+    <select id="getSelectedAuths" resultType="com.tawe.crowd.entity.Auth">
+        select id, auth_name, title, category_id from t_auth
+            where id in (select auth_id from inner_role_auth where role_id = #{roleId})
     </select>
 </mapper>

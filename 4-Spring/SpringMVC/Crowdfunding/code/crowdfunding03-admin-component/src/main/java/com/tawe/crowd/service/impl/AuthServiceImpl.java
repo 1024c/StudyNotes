@@ -1,5 +1,6 @@
 package com.tawe.crowd.service.impl;
 
+import com.tawe.crowd.dao.AssignMapper;
 import com.tawe.crowd.dao.AuthMapper;
 import com.tawe.crowd.entity.Auth;
 import com.tawe.crowd.entity.AuthExample;
@@ -19,4 +20,6 @@ public class AuthServiceImpl implements AuthService {
     public List<Auth> getAllAuths() {
         return authMapper.selectByExample(new AuthExample());
     }
+
+
 }

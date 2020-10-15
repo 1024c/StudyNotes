@@ -138,10 +138,49 @@ $(function () {
 
     // 绑定增加权限点击事件
     $(".assignAuthBtn").click(function () {
+        window.roleId = $.trim($(this).parent().siblings("[name=roleId]").text());
         $("#roleAssignAuthModal").modal("show");
 
         // 加载 zTree 数据
         generateAuthTree();
+    });
+
+    // 绑定权限提交点击事件
+    $("#saveAuthBtn").click(function () {
+
+        // 1. 收集 树形结构中被选中的节点
+        const zTreeObj = $.fn.zTree.getZTreeObj("authTree");
+        let checkedNodes = zTreeObj.getCheckedNodes();
+        // 1.2 将 checkedAuthId 加入到数组中待往后端传送
+        let auths = [];
+        for (const checkedNode of checkedNodes) {
+            auths.push(checkedNode.id);
+        }
+
+        // 2. 发送 Ajax 请求
+        $.ajax({
+            url: "assign/role/to/auth/save.json",
+            type: "post",
+            data: JSON.stringify({
+                "roleId": [window.roleId],
+                "authIds": auths
+            }),
+            contentType: "application/json; charset=UTF-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.result === "SUCCESS") {
+                    layer.msg("操作成功!");
+                } else if (response.result === "FAILURE") {
+                    layer.msg("操作失败!" + response.message);
+                }
+            },
+            error: function (response) {
+                layer.msg(response.status + "" + response.statusText);
+            },
+        });
+
+        // 关闭模态框
+        $("#roleAssignAuthModal").modal("hide");
     });
 });
 
@@ -149,12 +188,12 @@ $(function () {
 function generateAuthTree() {
     // 1. 发送 Ajax 请求查询 Auth 数据
     let ajaxReturn = $.ajax({
-        url: "assign/role/to/auth/get.json",
+        url: "assign/role/to/auth/get/all.json",
         type: "post",
         dataType: "json",
         async: false
     });
-    if (ajaxReturn.status != 200) {
+    if (ajaxReturn.status !== 200) {
         layer.msg("请求出错！响应状态码为：" + ajaxReturn.status
             + "<br/>错误信息：" + ajaxReturn.statusText);
         return;
@@ -190,7 +229,33 @@ function generateAuthTree() {
     zTreeObj.expandAll(true);
 
     // 5. 查询已分配的 Auth 的 id 组成的数组
-    // 6. 根据 authIdArray 把树型结构中的节点勾选上
+    ajaxReturn = $.ajax({
+        url: "assign/role/to/auth/get/selected.json",
+        type: "post",
+        data: {
+            "roleId": window.roleId
+        },
+        dataType: "json",
+        async: false
+    });
+
+    if (ajaxReturn.status !== 200) {
+        layer.msg("请求出错！响应状态码为：" + ajaxReturn.status
+            + "<br/>错误信息：" + ajaxReturn.statusText);
+        return;
+    }
+    let checkedAuths = ajaxReturn.responseJSON.data;
+
+    // 6. 根据 checkedAuths 把树型结构中的节点勾选上
+        // for...in 得到的 只是 index 取值需要: items[index]
+        // for...of 得到的 是对应的 item
+    for (const checkedAuth of checkedAuths) {
+        // 参数1: 需要check的 treeNode 节点
+        // 参数2: 表示节点是否勾选: true 选中; false 未选中
+        // 参数3: 表示子类选项是否联动
+        let treeNode = zTreeObj.getNodeByParam("id", checkedAuth.id);
+        zTreeObj.checkNode(treeNode, true, false);
+    }
 }
 
 // 任何时候调用这个函数都会重新加载页面数据

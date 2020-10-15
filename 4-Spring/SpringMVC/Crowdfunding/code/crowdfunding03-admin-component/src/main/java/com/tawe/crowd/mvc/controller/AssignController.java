@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AssignController {
@@ -23,7 +24,32 @@ public class AssignController {
     private AuthService authService;
 
     @ResponseBody
-    @RequestMapping("/assign/role/to/auth/get.json")
+    @RequestMapping("/assign/role/to/auth/save.json")
+    public ResultEntity<String> saveAuth(
+            // 这样是无法绑定 authIds 会出类型转换异常
+            // @RequestParam("roleId") Integer roleId,
+            // @RequestParam("authIds") List<Integer> authIds
+            @RequestBody Map<String, List<Integer>> map
+            ){
+        int cols = assignService.saveAuth(map);
+        if (cols > 0) {
+            return ResultEntity.succeededWithoutData();
+        } else {
+            return ResultEntity.failed(CrowdConstant.MESSAGE_DATABASE_ERROR.getMsg());
+        }
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/assign/role/to/auth/get/selected.json")
+    public ResultEntity<List<Auth>> getSelectedAuths(Integer roleId) {
+        List<Auth> auths = assignService.getSelectedAuths(roleId);
+        return ResultEntity.succeededWithData(auths);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/assign/role/to/auth/get/all.json")
     public ResultEntity<List<Auth>> getAllAuths() {
         List<Auth> auths = authService.getAllAuths();
         return ResultEntity.succeededWithData(auths);

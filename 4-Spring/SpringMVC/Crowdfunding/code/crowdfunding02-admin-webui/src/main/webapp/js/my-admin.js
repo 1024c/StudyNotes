@@ -7,6 +7,11 @@
         // :selected 选中的元素
         // appendTo 追加到哪个元素
         const selectElements = $("select:eq(0)>option:selected");
+
+        // toRight 时 提交 左边选中的表单
+        // toLeft 时 提交 右边选中的表单
+        $("#adminAssignRoleForm select:eq(0)").attr("name", "roleIds");
+        $("#adminAssignRoleForm select:eq(1)").removeAttr("name");
         // 通过 ajax 提交 form 表单
         $.ajax({
             url: "assign/admin/to/role/add.json",
@@ -62,6 +67,11 @@
     // 移除权限
     $("#toLeftBtn").click(function () {
         const selectElements = $("select:eq(1)>option:selected");
+
+        // toRight 时 提交 左边选中的表单
+        // toLeft 时 提交 右边选中的表单
+        $("#adminAssignRoleForm select:eq(1)").attr("name", "roleIds");
+        $("#adminAssignRoleForm select:eq(0)").removeAttr("name");
 
         // 通过 ajax 提交 form 表单
         $.ajax({

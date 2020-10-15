@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group" style="margin-left:40px;">
                             <label for="assignedRoles">已分配角色列表</label><br>
-                            <select id="assignedRoles" name="roleIds" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
+                            <select id="assignedRoles" class="form-control" multiple="" size="10" style="width:100px;overflow-y:auto;">
                                 <c:forEach items="${requestScope.assignedRoles}" var="role" varStatus="myStatus">
                                     <option value="${role.id}">${role.roleName}</option>
                                 </c:forEach>

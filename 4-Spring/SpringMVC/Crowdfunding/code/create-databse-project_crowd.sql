@@ -81,3 +81,10 @@ INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(4,'','角色模块',
 INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(5,'role:delete','删除',4);
 INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(6,'role:get','查询',4);
 INSERT INTO `t_auth`(id,auth_name,title,category_id) VALUES(7,'role:add','新增',4);
+
+# 创建 inner_role_auth 表
+CREATE TABLE `inner_role_auth` (
+role_id INT NOT NULL,
+auth_id INT NOT NULL,
+PRIMARY KEY (role_id, auth_id)
+);
