@@ -128,6 +128,6 @@ public class AssignController {
         modelMap.addAttribute("adminId", adminId);
         modelMap.addAttribute("assignedRoles", assignedRoles);
         modelMap.addAttribute("unAssignedRoles", unAssignedRoles);
-        return "admin-assign-role";
+        return "page/admin/admin-assign-role";
     }
 }

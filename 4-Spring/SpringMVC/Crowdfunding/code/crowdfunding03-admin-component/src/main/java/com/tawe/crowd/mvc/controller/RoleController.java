@@ -96,6 +96,6 @@ public class RoleController {
         // 将分页数据存入模型；
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO.getMsg(), pageInfo);
         // 返回主页面
-        return "role-page";
+        return "page/admin/role-page";
     }
 }

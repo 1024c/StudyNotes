@@ -27,7 +27,7 @@ public class CrowdExceptionResolver {
     @ExceptionHandler(LoginPswdIsNullException.class)
     public ModelAndView resloveLoginPswdIsNullException(LoginPswdIsNullException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
         // 此处指定当前异常对应的页面即可
-        String viewName = "admin-add";
+        String viewName = "page/admin/admin-add";
         return resolveException(e,request, response, viewName);
     }
 
@@ -37,10 +37,10 @@ public class CrowdExceptionResolver {
         String viewName = "system-error";
         // 分别处理 add 以及 edit 页面出来的异常
         if (CrowdConstant.ATTR_NAME_ADD.getMsg().equals(e.getStatus())) {
-            viewName = "admin-add";
+            viewName = "page/admin/admin-add";
         } else if (CrowdConstant.ATTR_NAME_EDIT.getMsg().equals(e.getStatus())) {
             // 直接返回 admin-edit 页面会丢失 admin-id， 无法带出数据
-            // viewName = "admin-edit";
+            // viewName = "page/admin/admin-edit";
         }
         //此处指定当前异常对应的页面即可
         return resolveException(e, request, response, viewName);
@@ -48,13 +48,13 @@ public class CrowdExceptionResolver {
 
     @ExceptionHandler(AccessForbiddenException.class)
     public ModelAndView resolveAccessForbiddenException(AccessForbiddenException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String viewName = "admin-login";
+        String viewName = "page/admin/admin-login";
         return resolveException(e, request, response, viewName);
     }
 
     @ExceptionHandler(LoginFailedException.class)
     public ModelAndView resolveLoginFailedException(LoginFailedException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String viewName = "admin-login";
+        String viewName = "page/admin/admin-login";
         return resolveException(e, request, response, viewName);
     }
 

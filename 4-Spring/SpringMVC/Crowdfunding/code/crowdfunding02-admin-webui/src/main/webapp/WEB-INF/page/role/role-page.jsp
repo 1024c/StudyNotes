@@ -9,9 +9,9 @@
 <html lang="UTF-8">
 <%@include file="/WEB-INF/include/include-head.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-role.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/ztree/zTreeStyle.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/ztree/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/my-role.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/ztree/zTreeStyle.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/ztree/jquery.ztree.all-3.5.min.js"></script>
 
 <body>
 <%@include file="/WEB-INF/include/include-nav.jsp" %>

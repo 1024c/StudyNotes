@@ -13,9 +13,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/main.css">
     <style>
         .tree li {
             list-style-type: none;
@@ -28,10 +28,10 @@
             height : auto;
         }
     </style>
-    <script src="${pageContext.request.contextPath}/jquery/jquery-2.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/script/docs.min.js"></script>
-    <script src="${pageContext.request.contextPath}/layer/layer.js"></script>
+    <script src="${pageContext.request.contextPath}/static/jquery/jquery-2.1.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/script/docs.min.js"></script>
+    <script src="${pageContext.request.contextPath}/static/layer/layer.js"></script>
 
     <script type="text/javascript">
         $(function () {

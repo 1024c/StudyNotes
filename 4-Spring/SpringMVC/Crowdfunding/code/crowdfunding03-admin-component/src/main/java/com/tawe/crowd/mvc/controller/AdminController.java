@@ -48,7 +48,7 @@ public class AdminController {
         Admin admin = adminService.selectById(id);
         // 2. 将 Admin 对象存入模型供 jsp 使用；
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN.getMsg(), admin);
-        return "admin-edit";
+        return "page/admin/admin-edit";
     }
 
     @RequestMapping("/admin/page/add.html")
@@ -83,7 +83,7 @@ public class AdminController {
         // 将分页数据存入模型；
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO.getMsg(), adminPage);
         // 返回主页面
-        return "admin-page";
+        return "page/admin/admin-page";
     }
 
     @RequestMapping("/admin/do/logout.html")
@@ -110,9 +110,9 @@ public class AdminController {
         session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN.getMsg(), admin);
 
         // 直接返回页面会导致,后续每次刷新 main 页面都会重新提交 登录请求
-        // return "admin-main";
+        // return "page/admin/admin-main";
         // 使用重定向解决该问题, 不可直接 redirect 页面 admin-main.jsp 在 WEB-INF 下不可访问
-        // return "redirect:admin-main"
+        // return "redirect:page/admin/admin-main"
         // 通过 controller 请求重定向, 此处由于是直接返回页面,可以在 xml 中配置 mvc:view-controller
         return "redirect:/admin/to/main/page.html";
     }

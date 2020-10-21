@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>Error</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/css" src="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/css" src="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"></script>
     <script type="text/javascript">
         $(function () {
             $("button").click(function () {

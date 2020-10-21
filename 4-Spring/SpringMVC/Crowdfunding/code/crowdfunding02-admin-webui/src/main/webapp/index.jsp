@@ -6,9 +6,9 @@
     <title>Index</title>
     <%--http://localhost:8080/<project_name>/<resource_name>.html--%>
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/layer/js/layerjs.js"></script>
-    <script type="text/css" src="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/layer/js/layerjs.js"></script>
+    <script type="text/css" src="${pageContext.request.contextPath}/static/bootstrap/css/bootstrap.min.css"></script>
     <script type="text/javascript">
         // 将 JSON 数组转换为 JSON 字符串
         let array = [1, 10, 20];

@@ -7,15 +7,15 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html lang="UTF-8">
-<%@include file="include/include-head.jsp" %>
+<%@include file="../../include/include-head.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/my-admin.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/static/js/my-admin.js"></script>
 <body>
-<%@include file="include/include-nav.jsp" %>
+<%@include file="../../include/include-nav.jsp" %>
 
 <div class="container-fluid">
     <div class="row">
-        <%@include file="include/include-sidebar.jsp" %>
+        <%@include file="../../include/include-sidebar.jsp" %>
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
