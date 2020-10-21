@@ -6,11 +6,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-
 import javax.sql.DataSource;
-
 
 /**
  * @author Administrator
@@ -22,9 +21,11 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    MyUserDetailsService myUserDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // super.configure(http);
 
         // 注入 datasource 到 JdbcTokenRepository 中
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -46,6 +47,7 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 // 设置登录页面
                 .and()
+                // 开启表单登录的功能
                 .formLogin()
                 .loginPage("/index.jsp")
                 .permitAll()
@@ -71,11 +73,17 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // super.configure(auth);
+        /********************* 使用 内存模式 加载用户角色与权限 ****************************************
+        // auth
+        //         .inMemoryAuthentication()
+        //         .withUser("tom").password("{noop}123").roles("ADMIN", "level1")
+        //         .and()
+        //         .withUser("david").password("{noop}qwe").authorities("SAVE", "EDIT", "level2");
+         ******************************************************************************************/
+
         auth
-                .inMemoryAuthentication()
-                .withUser("tom").password("{noop}123").roles("ADMIN", "level1")
-                .and()
-                .withUser("david").password("{noop}qwe").authorities("SAVE", "EDIT", "level2");
+                .userDetailsService(myUserDetailsService)
+                .passwordEncoder(new BCryptPasswordEncoder())
+                ;
     }
 }
