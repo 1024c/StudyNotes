@@ -92,7 +92,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin getAdminByLoginAcct(String loginAcct, String loginPaswd) {
+    public Admin getAdminByLoginAcct(String loginAcct, String loginPswd) {
         // 1. 根据登录账号查询 Admin 对象;
         //     1.1 创建 AdminExample 对象;
         AdminExample adminExample = new AdminExample();
@@ -119,7 +119,7 @@ public class AdminServiceImpl implements AdminService {
         String adminPswdDB = admin.getUserPswd();
 
         // 5. 将表单提交的明文密码加密进行比较;
-        String adminPswdForm = CrowdUtil.md5(loginPaswd);
+        String adminPswdForm = CrowdUtil.md5(loginPswd);
         if (!Objects.equals(adminPswdDB, adminPswdForm)) {
             // 6. 如果密码不一致则抛出异常;
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED.getMsg());

@@ -37,15 +37,19 @@
 
 <div class="container">
 
-    <form action="admin/do/login.html" class="form-signin" role="form">
+
+    <%--<form action="admin/do/login.html" method="post" class="form-signin" role="form">--%>
+    <form action="security/do/login.html" method="post" class="form-signin" role="form">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i>管理员登录</h2>
-        <h3>${requestScope.exception.message}</h3>
+        <h3>${SPRING_SECURITY_LAST_EXCEPTION.message}</h3>
+        <%--<h3>${requestScope.exception.message}</h3>--%>
         <div class="form-group has-success has-feedback">
             <input type="text" name="loginAcct" class="form-control" id="loginAcct" placeholder="请输入登录账号" autofocus>
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-success has-feedback">
-            <input type="password" name="loginPaswd" class="form-control" id="loginPaswd" placeholder="请输入登录密码" style="margin-top:10px;">
+            <input type="password" name="loginPswd" class="form-control" id="loginPswd" placeholder="请输入登录密码" style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <button class="btn btn-lg btn-success btn-block" type="submit" > 登录</button>

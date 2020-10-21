@@ -48,18 +48,18 @@
 
     <mvc:view-controller path="/menu/to/main/page.html" view-name="page/menu/menu-page"/>
 
-    <!--注册拦截器-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <!--配置要拦截的资源-->
-            <mvc:mapping path="/**"/>
-            <!--配置不拦截的资源-->
-            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
-            <mvc:exclude-mapping path="/admin/do/login.html"/>
-            <mvc:exclude-mapping path="/admin/do/logout.html"/>
+    <!--&lt;!&ndash;注册拦截器&ndash;&gt;-->
+    <!--<mvc:interceptors>-->
+    <!--    <mvc:interceptor>-->
+    <!--        &lt;!&ndash;配置要拦截的资源&ndash;&gt;-->
+    <!--        <mvc:mapping path="/**"/>-->
+    <!--        &lt;!&ndash;配置不拦截的资源&ndash;&gt;-->
+    <!--        <mvc:exclude-mapping path="/admin/to/login/page.html"/>-->
+    <!--        <mvc:exclude-mapping path="/admin/do/login.html"/>-->
+    <!--        <mvc:exclude-mapping path="/admin/do/logout.html"/>-->
 
-            <!--拦截器类-->
-            <bean class="com.tawe.crowd.mvc.interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--        &lt;!&ndash;拦截器类&ndash;&gt;-->
+    <!--        <bean class="com.tawe.crowd.mvc.interceptor.LoginInterceptor"/>-->
+    <!--    </mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 </beans>

@@ -94,11 +94,11 @@ public class AdminController {
 
     @RequestMapping("/admin/do/login.html")
     public String doLogin(@RequestParam("loginAcct") String loginAcct,
-                          @RequestParam("loginPaswd") String loginPaswd,
+                          @RequestParam("loginPswd") String loginPswd,
                           HttpSession session) {
         // 调用 Service 方法执行登录检查;
 
-        Admin admin = adminService.getAdminByLoginAcct(loginAcct, loginPaswd);
+        Admin admin = adminService.getAdminByLoginAcct(loginAcct, loginPswd);
 
         // 返回 Admin 对象说明登录成功;
         // 如果账号, 密码不正确则会抛出异常;
