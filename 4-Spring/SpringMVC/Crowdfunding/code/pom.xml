@@ -21,7 +21,7 @@
         <!-- Spring 版本统一管理 -->
         <spring.version>5.2.9.RELEASE</spring.version>
         <!-- Spring Security 版本统一管理 -->
-        <spring.security.version>5.4.0</spring.security.version>
+        <spring.security.version>5.3.5.RELEASE</spring.security.version>
         <mybatis.version>3.5.5</mybatis.version>
         <spring.mybatis.version>2.0.5</spring.mybatis.version>
     </properties>

@@ -48,9 +48,6 @@
 
     <mvc:view-controller path="/menu/to/main/page.html" view-name="menu-page"/>
 
-
-
-
     <!--注册拦截器-->
     <mvc:interceptors>
         <mvc:interceptor>
