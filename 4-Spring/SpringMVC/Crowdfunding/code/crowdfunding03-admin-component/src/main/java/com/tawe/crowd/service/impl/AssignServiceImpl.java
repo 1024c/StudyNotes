@@ -18,23 +18,23 @@ public class AssignServiceImpl implements AssignService {
     private AssignMapper assignMapper;
 
     @Override
-    public List<Role> getAssignedRoles(Integer adminId) {
+    public List<Role> getAssignedRolesByAdminId(Integer adminId) {
         return assignMapper.getAssignedRoles(adminId);
     }
 
     @Override
-    public List<Role> getUnAssignedRoles(Integer adminId) {
+    public List<Role> getUnAssignedRolesByAdminId(Integer adminId) {
         return assignMapper.getUnAssignedRoles(adminId);
     }
 
     @Override
-    public List<Auth> getSelectedAuths(Integer roleId) {
+    public List<Auth> getSelectedAuthsByRoleId(Integer roleId) {
         return assignMapper.getSelectedAuths(roleId);
     }
 
     @Override
     // @Transactional
-    public int addRoles(Integer adminId, List<Integer> roleIds) {
+    public int addRolesByAdminId(Integer adminId, List<Integer> roleIds) {
         // 可以再 SQL 中写循环
         // int cols = 0;
         // for (Integer roleId : roleIds) {
@@ -45,7 +45,7 @@ public class AssignServiceImpl implements AssignService {
     }
 
     @Override
-    public int removeRoles(Integer adminId, List<Integer> roleIds) {
+    public int removeRolesByAdminId(Integer adminId, List<Integer> roleIds) {
         // 可以再 SQL 中写循环
         // int cols = 0;
         // for (Integer roleId : roleIds) {

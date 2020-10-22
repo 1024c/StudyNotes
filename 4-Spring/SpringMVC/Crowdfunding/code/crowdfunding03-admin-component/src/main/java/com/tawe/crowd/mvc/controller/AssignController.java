@@ -43,7 +43,7 @@ public class AssignController {
     @ResponseBody
     @RequestMapping("/assign/role/to/auth/get/selected.json")
     public ResultEntity<List<Auth>> getSelectedAuths(Integer roleId) {
-        List<Auth> auths = assignService.getSelectedAuths(roleId);
+        List<Auth> auths = assignService.getSelectedAuthsByRoleId(roleId);
         return ResultEntity.succeededWithData(auths);
     }
 
@@ -61,7 +61,7 @@ public class AssignController {
     public ResultEntity<String> removeRolesWithForm(
             @RequestParam("adminId") Integer adminId,
             @RequestParam("roleIds") List<Integer> roleIds) {
-        int cols = assignService.removeRoles(adminId, roleIds);
+        int cols = assignService.removeRolesByAdminId(adminId, roleIds);
         if (cols > 0) {
             return ResultEntity.succeededWithoutData();
         } else {
@@ -75,7 +75,7 @@ public class AssignController {
     public ResultEntity<String> removeRoles(
             @PathVariable("adminId") Integer adminId,
             @RequestBody List<Integer> roleIds) {
-        int cols = assignService.removeRoles(adminId, roleIds);
+        int cols = assignService.removeRolesByAdminId(adminId, roleIds);
         if (cols > 0) {
             return ResultEntity.succeededWithoutData();
         } else {
@@ -89,7 +89,7 @@ public class AssignController {
     public ResultEntity<String> addRolesWithForm(
             @RequestParam("adminId") Integer adminId,
             @RequestParam("roleIds") List<Integer> roleIds) {
-        int cols = assignService.addRoles(adminId, roleIds);
+        int cols = assignService.addRolesByAdminId(adminId, roleIds);
         if (cols > 0) {
             return ResultEntity.succeededWithoutData();
         } else {
@@ -103,7 +103,7 @@ public class AssignController {
     public ResultEntity<String> addRoles(
             @PathVariable("adminId") Integer adminId,
             @RequestBody List<Integer> roleIds) {
-        int cols = assignService.addRoles(adminId, roleIds);
+        int cols = assignService.addRolesByAdminId(adminId, roleIds);
         if (cols > 0) {
             return ResultEntity.succeededWithoutData();
         } else {
@@ -121,9 +121,9 @@ public class AssignController {
             ModelMap modelMap
     ){
         // 1. 查询已分配角色
-        List<Role> assignedRoles = assignService.getAssignedRoles(adminId);
+        List<Role> assignedRoles = assignService.getAssignedRolesByAdminId(adminId);
         // 2. 查询未分配角色
-        List<Role> unAssignedRoles = assignService.getUnAssignedRoles(adminId);
+        List<Role> unAssignedRoles = assignService.getUnAssignedRolesByAdminId(adminId);
         // 3. 存入模型
         modelMap.addAttribute("adminId", adminId);
         modelMap.addAttribute("assignedRoles", assignedRoles);

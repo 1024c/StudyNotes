@@ -46,6 +46,6 @@
 <button id="testAjax">testAjax</button><br/>
 <a href="test/sys_exception.html">测试 system error 页面</a><br/>
 <br/>
-<a href="admin/to/login/page.html">登陆页面l</a>
+<a href="admin/to/main/page.html">登陆页面l</a>
 </body>
 </html>

@@ -36,8 +36,6 @@
 </nav>
 
 <div class="container">
-
-
     <%--<form action="admin/do/login.html" method="post" class="form-signin" role="form">--%>
     <form action="security/do/login.html" method="post" class="form-signin" role="form">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -52,6 +50,7 @@
             <input type="password" name="loginPswd" class="form-control" id="loginPswd" placeholder="请输入登录密码" style="margin-top:10px;">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
+        <div>记住我:<input type="checkbox" name="remember-me" value="true"></div>
         <button class="btn btn-lg btn-success btn-block" type="submit" > 登录</button>
     </form>
 </div>

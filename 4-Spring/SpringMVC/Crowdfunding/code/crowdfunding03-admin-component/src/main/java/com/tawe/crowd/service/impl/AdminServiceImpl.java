@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -36,6 +37,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public int save(Admin admin) throws LoginAcctAlreadyInUseException, LoginPswdIsNullException{
         // 1. 生成当前系统时间
@@ -47,7 +51,11 @@ public class AdminServiceImpl implements AdminService {
         if (userPswd == null || userPswd.equals("")) {
             throw new LoginPswdIsNullException(CrowdConstant.MESSAGE_LOGIN_PSWD_IS_NULL.getMsg());
         }
-        admin.setUserPswd(CrowdUtil.md5(userPswd));
+        /************ 取消使用 md5 加密 ****************
+         ******使用 SpringSecurity 的 bcrypt 加密 *****/
+        // admin.setUserPswd(CrowdUtil.md5(userPswd));
+        admin.setUserPswd(passwordEncoder.encode(userPswd));
+
         // 3. 执行保存
         int cols = 0;
         try {
@@ -91,8 +99,9 @@ public class AdminServiceImpl implements AdminService {
         return adminMapper.selectByPrimaryKey(id);
     }
 
+
     @Override
-    public Admin getAdminByLoginAcct(String loginAcct, String loginPswd) {
+    public Admin getAdminByLoginAcct(String loginAcct) {
         // 1. 根据登录账号查询 Admin 对象;
         //     1.1 创建 AdminExample 对象;
         AdminExample adminExample = new AdminExample();
@@ -102,7 +111,7 @@ public class AdminServiceImpl implements AdminService {
         //     1.4 调用 AdminMapper 方法执行查询;
         List<Admin> admins = adminMapper.selectByExample(adminExample);
         // 2. 判断 Admin 对象是否为空;
-        if (admins == null || admins.size() == 0) {
+        if (admins == null || admins.isEmpty()) {
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED_USER_NOT_EXIST.getMsg());
         }
 
@@ -115,7 +124,15 @@ public class AdminServiceImpl implements AdminService {
         if (admin == null) {
             throw new LoginFailedException(CrowdConstant.MESSAGE_LOGIN_FAILED_USER_NOT_EXIST.getMsg());
         }
+        return admin;
+    }
+
+
+    @Override
+    public Admin getAdminByLoginAcct(String loginAcct, String loginPswd) {
+
         // 4. 如果  Admin 对象不为 null 则将数据库密码从 Admin 对象中取出;
+        Admin admin = getAdminByLoginAcct(loginAcct);
         String adminPswdDB = admin.getUserPswd();
 
         // 5. 将表单提交的明文密码加密进行比较;

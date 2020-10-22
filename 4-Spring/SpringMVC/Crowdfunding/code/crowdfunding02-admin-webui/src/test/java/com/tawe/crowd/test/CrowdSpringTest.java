@@ -59,11 +59,11 @@ public class CrowdSpringTest {
     }
 
     @Test
-    public void insertExamples() throws LoginAcctAlreadyInUseException {
+    public void insertAdmins() throws LoginAcctAlreadyInUseException {
         for (int i = 0; i < 200; i++) {
             Admin admin = new Admin();
             admin.setUserName("name" + i);
-            admin.setUserPswd(CrowdUtil.md5("pswd" + i));
+            admin.setUserPswd("pswd" + i);
             admin.setEmail("mail"+i+"@tawe.com");
             admin.setLoginAcct("acct"+i);
             adminService.save(admin);

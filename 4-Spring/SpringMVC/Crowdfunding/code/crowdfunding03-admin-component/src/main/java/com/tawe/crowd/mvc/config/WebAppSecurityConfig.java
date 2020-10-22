@@ -1,20 +1,29 @@
 package com.tawe.crowd.mvc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private MyUserDetailServiceImpl myUserDetailService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("tom").password("{noop}123123").roles("ADMIN");
-        // auth
-        //         .userDetailsService()
-        //         .passwordEncoder(new BCryptPasswordEncoder());
+        // auth.inMemoryAuthentication().withUser("zhangsan").password("{noop}123123").roles("ADMIN");
+        auth
+                .userDetailsService(myUserDetailService)
+                .passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -28,6 +37,8 @@ public class WebAppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .csrf()
+                .disable()
                 // 开启表单登录的功能
                 .formLogin()
                 // 指定登录页面

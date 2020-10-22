@@ -8,6 +8,7 @@
   <!--needed for ContextLoaderListener-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
+    <!--<param-value>classpath:spring-persist-*.xml classpath:spring-security.xml</param-value>-->
     <param-value>classpath:spring-persist-*.xml</param-value>
   </context-param>
   <!--Bootstraps the root web application context before servlet initialization-->

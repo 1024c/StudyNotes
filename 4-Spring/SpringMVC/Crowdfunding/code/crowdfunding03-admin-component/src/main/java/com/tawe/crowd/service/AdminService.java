@@ -21,6 +21,7 @@ public interface AdminService {
 
     Admin selectById(Integer id);
 
+    Admin getAdminByLoginAcct(String loginAcct);
     Admin getAdminByLoginAcct(String loginAcct, String userPswd);
 
     PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize);

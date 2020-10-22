@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface AssignService {
-    List<Role> getAssignedRoles(Integer adminId);
-    List<Role> getUnAssignedRoles(Integer adminId);
+    List<Role> getAssignedRolesByAdminId(Integer adminId);
+    List<Role> getUnAssignedRolesByAdminId(Integer adminId);
 
-    List<Auth> getSelectedAuths(Integer roleId);
+    List<Auth> getSelectedAuthsByRoleId(Integer roleId);
 
-    int addRoles(Integer adminId, List<Integer> roleIds);
-    int removeRoles(Integer adminId, List<Integer> roleIds);
+    int addRolesByAdminId(Integer adminId, List<Integer> roleIds);
+    int removeRolesByAdminId(Integer adminId, List<Integer> roleIds);
 
     int saveAuth(Map<String, List<Integer>> map);
 }
