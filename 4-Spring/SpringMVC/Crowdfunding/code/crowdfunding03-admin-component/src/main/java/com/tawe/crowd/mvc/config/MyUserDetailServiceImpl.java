@@ -60,8 +60,10 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
         Collection<GrantedAuthority> authorities = new HashSet<>();
         // 6. 遍历 assignedRoleList 存入角色信息;
         roles.forEach(role -> {
+            // 在数据库中 添加 ROLE_ 前缀
             // 注意不要忘了加 ROLE_ 前缀;
-            String roleName = "ROLE_" + role.getRoleName();
+            // String roleName = "ROLE_" + role.getRoleName();
+            String roleName = role.getRoleName();
             GrantedAuthority authority = new SimpleGrantedAuthority(roleName);
             authorities.add(authority);
         });

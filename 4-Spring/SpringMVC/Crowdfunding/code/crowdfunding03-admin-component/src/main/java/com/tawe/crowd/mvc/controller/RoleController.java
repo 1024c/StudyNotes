@@ -6,6 +6,8 @@ import com.tawe.crowd.entity.Role;
 import com.tawe.crowd.service.RoleService;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +26,7 @@ import java.util.List;
  **/
 
 @Controller
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class RoleController {
 
     @Autowired
@@ -40,6 +43,7 @@ public class RoleController {
         }
     }
 
+    @PreAuthorize("hasAuthority('role:add')")
     @ResponseBody
     @RequestMapping("/role/save.json")
     public ResultEntity<String> addRoleWithJson(Role role) {
@@ -58,6 +62,7 @@ public class RoleController {
         }
     }
 
+    @PreAuthorize("hasAuthority('role:add')")
     @RequestMapping("/role/page/add.html")
     public String addRole(Role role) {
         roleService.addRole(role);

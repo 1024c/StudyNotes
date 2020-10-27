@@ -18,6 +18,9 @@ public class SecurityAdmin extends User {
     public SecurityAdmin(Admin originalAdmin, Collection<? extends GrantedAuthority> authorities) {
         super(originalAdmin.getUserName(), originalAdmin.getUserPswd(), authorities);
         this.originalAdmin = originalAdmin;
+
+        // 将原始 Admin 对象中的密码擦除
+        this.originalAdmin.setUserPswd(null);
     }
 
     public Admin getOriginalAdmin() {

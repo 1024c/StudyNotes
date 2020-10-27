@@ -9,6 +9,9 @@ import com.tawe.crowd.exception.SystemErrorException;
 import com.tawe.crowd.service.AdminService;
 import com.tawe.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +28,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Controller
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AdminController {
 
     @Autowired
@@ -51,6 +55,7 @@ public class AdminController {
         return "page/admin/admin-edit";
     }
 
+    @PreAuthorize("hasRole('admin')")
     @RequestMapping("/admin/page/add.html")
     public String addAdmin(Admin admin) throws LoginAcctAlreadyInUseException {
         adminService.save(admin);
