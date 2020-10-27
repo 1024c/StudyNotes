@@ -1,0 +1,3 @@
+建议使用 node.js 10.x 版本
+先把 node_modules 全部删除，然后再 npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+最后 npm install。
