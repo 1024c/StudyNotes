@@ -38,8 +38,15 @@ public class MyBatisPlusConfig {
     // 增加乐观锁
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
+
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
+        // 乐观锁插件
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
+        // 分页插件
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+
         return interceptor;
     }
 }

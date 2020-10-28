@@ -1,5 +1,6 @@
 package com.tawe.mybatisplus;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tawe.mybatisplus.entity.User;
 import com.tawe.mybatisplus.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest
@@ -62,6 +65,28 @@ class MybatisPlusApplicationTests {
         // user.setVersion(user.getVersion()-2);
         System.out.println(user);
         userMapper.updateById(user);
+    }
+
+    @Test
+    public void testSelectFunctions() {
+        // 根据 ID 查询
+        User user1 = userMapper.selectById(1321036140195209217L);
+        // 根据多个 IDs 查询
+        List<User> users = userMapper.selectBatchIds(Arrays.asList(1L, 2L, 3L));
+
+        // 根据 多个 条件 进行查询
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", 1L);
+        map.put("name", "David Tang2");
+
+        userMapper.selectByMap(map);
+
+    }
+
+    @Test
+    public void testSelectPage() {
+        Page<User> userPage = userMapper.selectPage(new Page<>(3,5), null);
+        System.out.println(userPage);
     }
 
 }
