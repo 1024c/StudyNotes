@@ -21,6 +21,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         this.strictInsertFill(metaObject, "createTime", Timestamp.class, new Timestamp(System.currentTimeMillis()));
         this.strictInsertFill(metaObject, "updateTime", Timestamp.class, new Timestamp(System.currentTimeMillis()));
         this.strictInsertFill(metaObject, "version", Integer.class, 1);
+        this.strictInsertFill(metaObject, "flag", Integer.class, 0);
     }
 
     @Override

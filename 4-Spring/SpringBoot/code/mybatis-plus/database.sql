@@ -26,4 +26,9 @@ alter table user
     add update_time datetime null;
 
 # 增加乐观锁 version 字段
-ALTER TABLE `user` ADD COLUMN `version` INT
+ALTER TABLE `user` ADD COLUMN `version` INT;
+
+# 新增 逻辑删除 字段
+ALTER TABLE `user` ADD COLUMN `flag` INT DEFAULT 0;
+
+UPDATE `user` SET flag=0 WHERE 1=1;
