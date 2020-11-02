@@ -1,9 +1,8 @@
-package com.tawe.edu.service.impl;
+package com.tawe.service.edu.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.tawe.edu.entity.EduTeacher;
-import com.tawe.edu.mapper.EduTeacherMapper;
-import com.tawe.edu.service.EduTeacherService;
+import com.tawe.service.edu.entity.EduTeacher;
+import com.tawe.service.edu.mapper.EduTeacherMapper;
+import com.tawe.service.edu.service.EduTeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

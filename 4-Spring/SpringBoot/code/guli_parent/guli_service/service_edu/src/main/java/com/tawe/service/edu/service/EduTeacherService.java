@@ -1,6 +1,6 @@
-package com.tawe.edu.service;
+package com.tawe.service.edu.service;
 
-import com.tawe.edu.entity.EduTeacher;
+import com.tawe.service.edu.entity.EduTeacher;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;

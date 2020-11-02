@@ -1,9 +1,10 @@
-package com.tawe.edu.config;
+package com.tawe.service.edu.config;
 
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -16,7 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @Configuration
 @EnableTransactionManagement
-@MapperScan("com.tawe.edu.mapper")
+@MapperScan("com.tawe.service.edu.mapper")
+@ComponentScan("com.tawe")
 public class ServiceEduConfig {
 
     @Bean

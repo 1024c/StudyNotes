@@ -1,6 +1,6 @@
-package com.tawe.edu.mapper;
+package com.tawe.service.edu.mapper;
 
-import com.tawe.edu.entity.EduTeacher;
+import com.tawe.service.edu.entity.EduTeacher;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

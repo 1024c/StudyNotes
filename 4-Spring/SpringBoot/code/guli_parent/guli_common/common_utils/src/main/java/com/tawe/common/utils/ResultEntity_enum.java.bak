@@ -1,0 +1,54 @@
+package com.tawe.common.utils;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @ClassName ResultEntity
+ * @Description 前后端分离返回的统一数据接口
+ * @Author davidt
+ * @Date 11/2/2020 3:35 PM
+ * @Version 1.0
+ **/
+@Data
+public class ResultEntity<T> {
+    @ApiModelProperty("是否成功")
+    private Boolean success;
+    @ApiModelProperty("返回码")
+    private Integer code;
+    @ApiModelProperty("返回消息")
+    private String message;
+    @ApiModelProperty("返回数据")
+    private Map<String, T> data = new HashMap<>();
+
+    public ResultEntity<T> ok() {
+        this.setSuccess(ResultCode.SUCCESS.getStatus());
+        this.setCode(ResultCode.SUCCESS.getCode());
+        this.setMessage(ResultCode.SUCCESS.getMessage());
+        return this;
+    }
+
+    public ResultEntity<T> error() {
+        this.setSuccess(ResultCode.ERROR.getStatus());
+        this.setCode(ResultCode.ERROR.getCode());
+        this.setMessage(ResultCode.ERROR.getMessage());
+        return this;
+    }
+
+    public ResultEntity<T> data(String key, T value) {
+        this.data.put(key, value);
+        return this;
+    }
+
+    public ResultEntity<T> data(Map<String, T> data) {
+        this.setData(data);
+        return this;
+    }
+
+
+
+
+}
