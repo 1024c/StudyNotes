@@ -66,4 +66,9 @@ public class ResultEntity {
         this.data = data;
         return this;
     }
+
+    public ResultEntity code(Integer code) {
+        this.code = code;
+        return this;
+    }
 }

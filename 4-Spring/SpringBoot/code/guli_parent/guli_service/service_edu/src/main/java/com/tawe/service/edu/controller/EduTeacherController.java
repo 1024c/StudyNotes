@@ -2,6 +2,8 @@ package com.tawe.service.edu.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tawe.common.service.base.exception.ResourceNotFoundException;
+import com.tawe.common.utils.ResultCode;
 import com.tawe.common.utils.ResultEntity;
 import com.tawe.common.utils.ResultMsg;
 import com.tawe.service.edu.entity.EduTeacher;
@@ -61,7 +63,7 @@ public class EduTeacherController {
             @RequestParam(value = "page") Integer page,
             @ApiParam(name = "limit", value = "每页记录数", required = true)
             @RequestParam(value = "limit") Integer limit,
-            @ApiParam(name = "teacherQuery", value = "查询对象", required = false)
+            @ApiParam(name = "teacherQuery", value = "查询对象")
             @RequestBody EduTeacherQuery eduTeacherQuery
     ) {
         Page<EduTeacher> pageParam = new Page<>(page, limit);
@@ -85,9 +87,9 @@ public class EduTeacherController {
 
         EduTeacher eduTeacher = eduTeacherService.getById(id);
         if (eduTeacher == null) {
-            return ResultEntity.error().message(ResultMsg.NO_DATA);
+            throw new ResourceNotFoundException(ResultCode.NO_DATA.getCode(), ResultMsg.NO_DATA);
+            // return ResultEntity.error().message(ResultMsg.NO_DATA);
         } else {
-            // return ResultEntity.<EduTeacher>ok().data("item", eduTeacher);
             return ResultEntity.ok("eduTeacher", eduTeacher);
         }
     }

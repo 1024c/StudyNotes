@@ -11,7 +11,8 @@ import lombok.Getter;
  **/
 public enum ResultCode {
     SUCCESS(20000),
-    ERROR(40000);
+    ERROR(40000),
+    NO_DATA(4004);
 
     @Getter
     private Integer code;
