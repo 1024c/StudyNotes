@@ -11,12 +11,12 @@ import org.junit.Test;
 
 /**
  * @ClassName MyBatisPlusCodeGenerator
- * @Description TODO
+ * @Description Code Generator
  * @Author Administrator
  * @Date 10/29/2020 2:35 PM
  * @Version 1.0
  **/
-public class MyBatisPlusCodeGenerator {
+public class TestMyBatisPlusCodeGenerator {
     @Test
     public void main() {
 
@@ -33,10 +33,10 @@ public class MyBatisPlusCodeGenerator {
         gc.setFileOverride(false); //重新生成时文件是否覆盖
         /*
          * mp生成service层代码，默认接口名称第一个字母有 I
-         * UcenterService
+         * ICenterService
          * */
         gc.setServiceName("%sService");	//去掉Service接口的首字母I
-        gc.setIdType(IdType.ID_WORKER); //主键策略
+        gc.setIdType(IdType.ID_WORKER_STR); //主键策略
         gc.setDateType(DateType.ONLY_DATE);//定义生成的实体类中日期类型
         gc.setSwagger2(true);//开启Swagger2模式
 

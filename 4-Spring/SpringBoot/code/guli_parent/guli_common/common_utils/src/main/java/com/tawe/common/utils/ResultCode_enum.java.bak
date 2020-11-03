@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * @ClassName ResultCode
- * @Description TODO
+ * @Description ResultCode
  * @Author davidt
  * @Date 11/2/2020 3:34 PM
  * @Version 1.0

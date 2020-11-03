@@ -1,6 +1,8 @@
 package com.tawe.common.utils;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -10,11 +12,13 @@ import java.util.Map;
  * @ClassName ResultEntity
  * @Description 前后端统一接口
  * @Author davidt
- * @Date 11/3/2020 10:40 AM
+ * @Date 11/2/2020 5:14 PM
  * @Version 1.0
  **/
+
 @Getter
-public class ResultEntity {
+public class ResultEntity<T> {
+
     @ApiModelProperty("是否成功")
     private Boolean success;
     @ApiModelProperty("返回码")
@@ -22,48 +26,49 @@ public class ResultEntity {
     @ApiModelProperty("返回消息")
     private String message;
     @ApiModelProperty("返回数据")
-    private Map<String, Object> data = new HashMap<>();
+    private Map<String, T> data;
 
     private ResultEntity(){}
 
+    public static <E> ResultEntity<E> ok() {
+        return ok("", null);
+    }
 
-    public static ResultEntity ok() {
-        ResultEntity result = new ResultEntity();
+    public static <E> ResultEntity<E> ok(String key, E value) {
+        ResultEntity<E> result = new ResultEntity<>();
         result.success = true;
         result.code = ResultCode.SUCCESS.getCode();
         result.message = ResultMsg.SUCCESS;
+        Map<String, E> map = new HashMap<>(1);
+        if (!key.isEmpty() && value != null) {
+            map.put(key, value);
+        }
+        result.data = map;
         return result;
     }
 
-    public static ResultEntity ok(String key, Object value) {
-        ResultEntity result = new ResultEntity();
-        result.success = true;
-        result.code = ResultCode.SUCCESS.getCode();
-        result.message = ResultMsg.SUCCESS;
-        result.data(key, value);
-        return result;
-    }
-
-    public static ResultEntity error() {
-        ResultEntity result = new ResultEntity();
+    public static <E> ResultEntity<E> error() {
+        ResultEntity<E> result = new ResultEntity<>();
         result.success = false;
         result.code = ResultCode.ERROR.getCode();
         result.message = ResultMsg.ERROR;
+        result.data = new HashMap<>(1);
         return result;
     }
 
-    public ResultEntity message(String message) {
+    public ResultEntity<T> message(String message) {
         this.message = message;
         return this;
     }
 
-    public ResultEntity data(String key, Object value) {
+    public ResultEntity<T> data(String key, T value) {
         this.data.put(key, value);
         return this;
     }
 
-    public ResultEntity data(Map<String, Object> data) {
+    public ResultEntity<T> data(Map<String, T> data) {
         this.data = data;
         return this;
     }
+
 }

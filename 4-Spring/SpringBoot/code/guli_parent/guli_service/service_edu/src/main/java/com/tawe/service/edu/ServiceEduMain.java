@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @ClassName EduTeacher
- * @Description TODO
+ * @Description EduTeacher 主启动类
  * @Author Administrator
  * @Date 10/29/2020 11:57 AM
  * @Version 1.0
