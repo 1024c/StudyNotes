@@ -42,7 +42,7 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
+  // 首页
   {
     path: '/',
     component: Layout,
@@ -53,6 +53,35 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
+  },
+  // 讲师管理
+  {
+    path: '/edu/teacher',
+    component: Layout,
+    redirect: '/edu/teacher/list',
+    name: 'Teacher',
+    meta: { title: '讲师管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'EduTeacherList',
+        component: () => import('@/views/edu/teacher/list'),
+        meta: { title: '讲师列表', icon: 'table' }
+      },
+      {
+        path: 'create',
+        name: 'EduTeacherCreate',
+        component: () => import('@/views/edu/teacher/form'),
+        meta: { title: '添加讲师', icon: 'tree' }
+      },
+      {
+        path: 'edit/:id',
+        name: 'EduTeacherEdit',
+        component: () => import('@/views/edu/teacher/form'),
+        meta: { title: '编辑讲师', noCache: true },
+        hidden: true
+      }
+    ]
   },
 
   {
@@ -143,7 +172,6 @@ export const constantRoutes = [
       {
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
         meta: { title: 'menu2' }
       }
     ]
