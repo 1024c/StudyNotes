@@ -80,6 +80,19 @@ public class EduTeacherController {
         }
     }
 
+    @ApiOperation("查询所有讲师信息 - 分页展示")
+    @PostMapping("select-all-with-page/{page}/{limit}")
+    public ResultEntity selectAllWithPage(
+            @ApiParam(name = "page", value = "当前页码", required = true)
+            @PathVariable(value = "page") Integer page,
+            @ApiParam(name = "limit", value = "每页记录数", required = true)
+            @PathVariable(value = "limit") Integer limit,
+            @ApiParam(name = "teacherQuery", value = "查询对象")
+            @RequestBody EduTeacherQuery eduTeacherQuery
+    ) {
+        return selectAll(page, limit, eduTeacherQuery);
+    }
+
     @ApiOperation("根据 ID 查询讲师信息")
     @GetMapping("select-one")
     public ResultEntity selectOne(
