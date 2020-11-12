@@ -30,7 +30,11 @@
         </el-form-item>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" @click="fetchData">查询</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          @click="fetchData"
+        >查询</el-button>
         <el-button type="default" @click="resetData">清空</el-button>
       </el-form-item>
     </el-form>
@@ -39,7 +43,13 @@
       style="width: 100%"
       :default-sort="{ prop: 'date', order: 'descending' }"
     >
-      <el-table-column label="ID" type="index" :index="indexMethod" sortable width="180" />
+      <el-table-column
+        label="ID"
+        type="index"
+        :index="indexMethod"
+        sortable
+        width="180"
+      />
       <el-table-column prop="avatar" label="头像" sortable width="180">
         <template slot-scope="scope">
           <el-avatar shape="square" :size="30" :src="scope.row.avatar" />
@@ -50,19 +60,13 @@
       <el-table-column prop="career" label="职位" sortable width="180" />
 
       <el-table-column prop="gmtCreate" label="创建时间" />
-      <el-table-column
-        fixed="right"
-        label="操作"
-        width="120"
-      >
+      <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            size="small"
-            @click="deleteRow(scope.row.id)"
-          >
-            移除
-          </el-button>
+          <!-- <el-button type="text" size="small" @click="viewRow(scope.row.id)">查看</el-button> -->
+          <router-link :to="`/edu/teacher/edit/${scope.row.id}`">
+            <el-button type="text" size="small">编辑</el-button>
+          </router-link>
+          <el-button type="text" size="small" @click="deleteRow(scope.row.id)">移除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -79,8 +83,7 @@
 </template>
 
 <script>
-import { getPageList } from '@/api/edu/teacher'
-import { deleteById } from '@/api/edu/teacher'
+import teacher from '@/api/edu/teacher'
 
 export default {
   data() {
@@ -99,7 +102,7 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true
-      getPageList(this.page, this.limit, this.searchObj).then((response) => {
+      teacher.getPageList(this.page, this.limit, this.searchObj).then((response) => {
         this.list = response.data.rows
         this.total = response.data.total
         this.listLoading = false
@@ -132,13 +135,29 @@ export default {
     },
 
     // 删除讲师
-    deleteRow(index) {
-      // this.$message(index)
-      deleteById(index).then((response) => {
-        this.fetchData()
+    deleteRow(id) {
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
       })
+        .then(() => {
+          teacher.deleteById(id).then(() => {
+            this.fetchData()
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
+        })
     }
-
   }
+
 }
 </script>

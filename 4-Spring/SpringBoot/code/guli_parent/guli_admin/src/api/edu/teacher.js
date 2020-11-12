@@ -1,27 +1,52 @@
 import request from '@/utils/request'
 
-const api_name_all = 'edu/edu-teacher/select-all'
-const api_name_all_page = 'edu/edu-teacher/select-all-with-page'
-// const api_name = '/vue-admin-template/edu/teacher'
+const api_name = 'edu/edu-teacher'
 
-export function getPageList(page, limit, searchObj) {
-  return request({
-    url: `${api_name_all_page}?page=${page}&limit=${limit}`,
-    method: 'post',
-    data: searchObj
-  })
-}
+export default {
+  getPageList(page, limit, searchObj) {
+    return request({
+      url: `${api_name}/select-all?page=${page}&limit=${limit}`,
+      method: 'post',
+      data: searchObj
+    })
+  },
 
-export function getList() {
-  return request({
-    url: api_name_all,
-    method: 'get'
-  })
-}
+  getList() {
+    return request({
+      url: `${api_name}/select-all`,
+      method: 'get'
+    })
+  },
 
-export function deleteById(id) {
-  return request({
-    url: `delete/${id}`,
-    method: 'delete'
-  })
+  deleteById(id) {
+    return request({
+      url: `${api_name}/delete/${id}`,
+      method: 'delete'
+    })
+  },
+
+  save(teacher) {
+    return request({
+      url: `${api_name}/save`,
+      method: 'post',
+      data: teacher
+    })
+  },
+
+  // 编辑界面回显
+  getById(id) {
+    return request({
+      url: `${api_name}/select/${id}`,
+      method: 'get'
+    })
+  },
+
+  // 更新保存
+  update(teacher) {
+    return request({
+      url: `${api_name}/update`,
+      method: 'put',
+      data: teacher
+    })
+  }
 }

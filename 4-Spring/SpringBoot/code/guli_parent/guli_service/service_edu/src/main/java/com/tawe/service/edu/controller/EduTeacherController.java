@@ -1,6 +1,8 @@
 package com.tawe.service.edu.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tawe.common.service.base.exception.ResourceNotFoundException;
 import com.tawe.common.utils.ResultCode;
@@ -15,6 +17,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -28,14 +32,15 @@ import java.util.List;
 @Api("讲师管理")
 @RestController
 @RequestMapping("/edu/edu-teacher")
-@CrossOrigin
+// 已用配置类实现
+// @CrossOrigin
 public class EduTeacherController {
 
     @Resource
     private EduTeacherService eduTeacherService;
 
     @ApiOperation("新增讲师")
-    @PostMapping("insert")
+    @PostMapping("save")
     public ResultEntity save(
             @ApiParam(name = "Teacher", value = "讲师对象", required = true)
             @RequestBody EduTeacher eduTeacher
@@ -58,7 +63,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation("查询所有讲师信息 - 分页展示")
-    @PostMapping("select-all-with-page")
+    @PostMapping("select-all")
     public ResultEntity selectAll(
             @ApiParam(name = "page", value = "当前页码", required = true)
             @RequestParam(value = "page") Integer page,
@@ -81,7 +86,7 @@ public class EduTeacherController {
     }
 
     @ApiOperation("查询所有讲师信息 - 分页展示")
-    @PostMapping("select-all-with-page/{page}/{limit}")
+    @PostMapping("select-all/{page}/{limit}")
     public ResultEntity selectAllWithPage(
             @ApiParam(name = "page", value = "当前页码", required = true)
             @PathVariable(value = "page") Integer page,
@@ -94,22 +99,22 @@ public class EduTeacherController {
     }
 
     @ApiOperation("根据 ID 查询讲师信息")
-    @GetMapping("select-one")
-    public ResultEntity selectOne(
+    @GetMapping("select/{id}")
+    public ResultEntity selectById(
             @ApiParam(name = "id", value = "讲师 ID", required = true)
-            @RequestParam("id")String id) {
+            @PathVariable("id")String id) {
 
         EduTeacher eduTeacher = eduTeacherService.getById(id);
         if (eduTeacher == null) {
             throw new ResourceNotFoundException(ResultCode.NO_DATA.getCode(), ResultMsg.NO_DATA);
             // return ResultEntity.error().message(ResultMsg.NO_DATA);
         } else {
-            return ResultEntity.ok("eduTeacher", eduTeacher);
+            return ResultEntity.ok("item", eduTeacher);
         }
     }
 
     @ApiOperation("根据 ID 修改讲师")
-    @PostMapping("update")
+    @PutMapping("update")
     public ResultEntity updateById(
             // @ApiParam(name = "id", value = "讲师 ID", required = true)
             // @RequestParam("id") String id,
@@ -117,6 +122,7 @@ public class EduTeacherController {
             @RequestBody EduTeacher eduTeacher
     ) {
         // eduTeacher.setId(id);
+        eduTeacher.setGmtModified(new Timestamp(System.currentTimeMillis()));
         boolean result = eduTeacherService.updateById(eduTeacher);
         return result ? ResultEntity.ok() : ResultEntity.error();
     }

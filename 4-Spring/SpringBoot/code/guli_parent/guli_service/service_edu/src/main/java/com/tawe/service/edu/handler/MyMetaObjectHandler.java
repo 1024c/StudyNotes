@@ -5,6 +5,7 @@ import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * @ClassName MyMetaObjectHandler
@@ -18,12 +19,12 @@ import java.sql.Date;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.setFieldValByName("gmtCreate", new Date(System.currentTimeMillis()), metaObject);
-        this.setFieldValByName("gmtModified", new Date(System.currentTimeMillis()), metaObject);
+        this.setFieldValByName("gmtCreate", new Timestamp(System.currentTimeMillis()), metaObject);
+        this.setFieldValByName("gmtModified", new Timestamp(System.currentTimeMillis()), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        this.setFieldValByName("gmtModified",new Date(System.currentTimeMillis()), metaObject);
+        this.setFieldValByName("gmtModified",new Timestamp(System.currentTimeMillis()), metaObject);
     }
 }

@@ -18,7 +18,7 @@ import java.util.HashMap;
  **/
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+// @CrossOrigin
 public class UserController {
 
     @RequestMapping("login")
