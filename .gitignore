@@ -44,6 +44,7 @@ target/
 # Azure DataBase settings
 # 测试环境
 # application*.properties
+application-dev.properties
 # application*.yml
 Mybatis/IDEA-workspaces/simple/.classpath
 Mybatis/IDEA-workspaces/simple/.settings/org.eclipse.jdt.core.prefs

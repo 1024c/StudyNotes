@@ -2,6 +2,7 @@ package com.tawe.service.edu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @ClassName Teacher
@@ -10,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 10/29/2020 11:57 AM
  * @Version 1.0
  **/
+
 @SpringBootApplication
+@EnableSwagger2
 public class ServiceEduMain {
     public static void main(String[] args) {
         SpringApplication.run(ServiceEduMain.class, args);
