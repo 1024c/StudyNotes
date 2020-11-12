@@ -6,14 +6,14 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @ClassName EduTeacherQuery
+ * @ClassName TeacherQuery
  * @Description TeacherQuery 查询对象
  * @Author davidt
  * @Date 11/3/2020 11:02 AM
  * @Version 1.0
  **/
 @Data
-public class EduTeacherQuery implements Serializable {
+public class TeacherQuery implements Serializable {
 
     @ApiModelProperty(value = "教师名称,模糊查询")
     private String name;

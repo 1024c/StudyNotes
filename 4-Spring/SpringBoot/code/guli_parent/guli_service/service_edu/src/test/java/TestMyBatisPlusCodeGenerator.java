@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -18,6 +19,7 @@ import org.junit.Test;
  **/
 public class TestMyBatisPlusCodeGenerator {
     @Test
+    @Ignore
     public void main() {
 
         // 1、创建代码生成器
@@ -54,7 +56,7 @@ public class TestMyBatisPlusCodeGenerator {
         // 4、包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName("edu"); //模块名
-        pc.setParent("com.tawe");
+        pc.setParent("com.tawe.service");
         pc.setController("controller");
         pc.setEntity("entity");
         pc.setService("service");

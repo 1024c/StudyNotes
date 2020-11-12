@@ -1,6 +1,6 @@
 package com.tawe.service.edu.mapper;
 
-import com.tawe.service.edu.entity.EduTeacher;
+import com.tawe.service.edu.entity.Teacher;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author tawe
- * @since 2020-10-29
+ * @since 2020-11-12
  */
-public interface EduTeacherMapper extends BaseMapper<EduTeacher> {
+public interface TeacherMapper extends BaseMapper<Teacher> {
 
 }

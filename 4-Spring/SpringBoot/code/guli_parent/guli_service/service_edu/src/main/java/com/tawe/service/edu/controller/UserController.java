@@ -1,9 +1,6 @@
 package com.tawe.service.edu.controller;
 
 import com.tawe.common.utils.ResultEntity;
-import com.tawe.service.edu.dtu.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -2,10 +2,10 @@ package com.tawe.service.edu.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tawe.service.edu.entity.EduTeacher;
-import com.tawe.service.edu.mapper.EduTeacherMapper;
-import com.tawe.service.edu.query.EduTeacherQuery;
-import com.tawe.service.edu.service.EduTeacherService;
+import com.tawe.service.edu.entity.Teacher;
+import com.tawe.service.edu.mapper.TeacherMapper;
+import com.tawe.service.edu.query.TeacherQuery;
+import com.tawe.service.edu.service.TeacherService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,33 +19,33 @@ import java.util.List;
  * </p>
  *
  * @author tawe
- * @since 2020-10-29
+ * @since 2020-11-12
  */
 @Service
-public class EduTeacherServiceImpl extends ServiceImpl<EduTeacherMapper, EduTeacher> implements EduTeacherService {
+public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> implements TeacherService {
 
     @Resource
-    private EduTeacherMapper eduTeacherMapper;
+    private TeacherMapper teacherMapper;
 
     @Override
-    public List<EduTeacher> selectAll() {
-        return eduTeacherMapper.selectList(null);
+    public List<Teacher> selectAll() {
+        return teacherMapper.selectList(null);
     }
 
     @Override
     public boolean deleteById(String id) {
-        return eduTeacherMapper.deleteById(id) > 0;
+        return teacherMapper.deleteById(id) > 0;
     }
 
     @Override
-    public void pageQuery(Page<EduTeacher> pageParam, EduTeacherQuery eduTeacherQuery) {
-        QueryWrapper<EduTeacher> queryWrapper = new QueryWrapper<>();
+    public void pageQuery(Page<Teacher> pageParam, TeacherQuery teacherQuery) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByAsc("sort");
-        if (eduTeacherQuery != null) {
-            String name = eduTeacherQuery.getName();
-            Integer level = eduTeacherQuery.getLevel();
-            String begin = eduTeacherQuery.getBegin();
-            String end = eduTeacherQuery.getEnd();
+        if (teacherQuery != null) {
+            String name = teacherQuery.getName();
+            Integer level = teacherQuery.getLevel();
+            String begin = teacherQuery.getBegin();
+            String end = teacherQuery.getEnd();
 
             // if (name != null && !name.isEmpty()) {
             if (!StringUtils.isEmpty(name)) {

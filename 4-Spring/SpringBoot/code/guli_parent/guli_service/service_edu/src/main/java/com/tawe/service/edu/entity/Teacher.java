@@ -6,10 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -18,13 +16,14 @@ import java.sql.Timestamp;
  * </p>
  *
  * @author tawe
- * @since 2020-10-29
+ * @since 2020-11-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="EduTeacher对象", description="讲师")
-public class EduTeacher implements Serializable {
+@TableName("edu_teacher")
+@ApiModel(value="Teacher对象", description="讲师")
+public class Teacher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -61,5 +60,6 @@ public class EduTeacher implements Serializable {
     @ApiModelProperty(value = "更新时间", hidden = true)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Timestamp gmtModified;
+
 
 }
