@@ -42,7 +42,8 @@ target/
 .factorypath
 
 # Azure DataBase settings
-application.properties
+application*.properties
+application*.yml
 Mybatis/IDEA-workspaces/simple/.classpath
 Mybatis/IDEA-workspaces/simple/.settings/org.eclipse.jdt.core.prefs
 
