@@ -1,8 +1,10 @@
 import request from '@/utils/request'
 
+var base_url = '/edu/user'
+
 export function login(data) {
   return request({
-    url: '/user/login',
+    url: `${base_url}/login`,
     method: 'post',
     data
   })
@@ -10,7 +12,7 @@ export function login(data) {
 
 export function getInfo(token) {
   return request({
-    url: '/user/info',
+    url: `${base_url}/info`,
     method: 'get',
     params: { token }
   })
@@ -18,7 +20,7 @@ export function getInfo(token) {
 
 export function logout() {
   return request({
-    url: '/user/logout',
+    url: `${base_url}/logout`,
     method: 'post'
   })
 }
