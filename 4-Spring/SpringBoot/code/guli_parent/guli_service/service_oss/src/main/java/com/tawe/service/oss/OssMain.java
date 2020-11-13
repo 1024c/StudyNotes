@@ -15,7 +15,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  **/
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @MapperScan("com.tawe.service.edu.mapper")
-@EnableSwagger2
+// @EnableSwagger2
 public class OssMain {
 
     public static void main(String[] args) {

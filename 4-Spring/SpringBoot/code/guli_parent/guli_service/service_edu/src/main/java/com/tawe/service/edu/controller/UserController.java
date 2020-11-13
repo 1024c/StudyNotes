@@ -1,6 +1,7 @@
 package com.tawe.service.edu.controller;
 
 import com.tawe.common.utils.ResultEntity;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
  **/
 @RestController
 @RequestMapping("/edu/user")
-// @CrossOrigin
+@Api(hidden=true)
 public class UserController {
 
     @RequestMapping("login")
