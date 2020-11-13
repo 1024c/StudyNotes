@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @ClassName CORSConfig
- * @Description TODO
+ * @Description 跨域访问
  * @Author davidt
  * @Date 11/11/2020 10:56 AM
  * @Version 1.0

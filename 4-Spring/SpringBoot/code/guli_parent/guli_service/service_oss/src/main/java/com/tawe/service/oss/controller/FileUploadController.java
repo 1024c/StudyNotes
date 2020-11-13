@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Api("阿里云文件管理")
 @RestController
 @RequestMapping("/oss/file/")
+@CrossOrigin
 public class FileUploadController {
     @Autowired
     private FileService fileService;
