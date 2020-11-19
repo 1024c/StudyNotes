@@ -4,7 +4,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tawe.common.service.base.exception.ResourceNotFoundException;
-import com.tawe.service.edu.dto.SubjectDto;
+import com.tawe.service.edu.dto.SubjectExcelDto;
 import com.tawe.service.edu.entity.Subject;
 import com.tawe.service.edu.service.SubjectService;
 
@@ -15,7 +15,7 @@ import com.tawe.service.edu.service.SubjectService;
  * @Date 11/13/2020 2:44 PM
  * @Version 1.0
  **/
-public class SubjectReadListener extends AnalysisEventListener<SubjectDto> {
+public class SubjectReadListener extends AnalysisEventListener<SubjectExcelDto> {
 
     private final SubjectService subjectService;
 
@@ -25,13 +25,13 @@ public class SubjectReadListener extends AnalysisEventListener<SubjectDto> {
 
 
     @Override
-    public void invoke(SubjectDto subjectDto, AnalysisContext analysisContext) {
-        if (subjectDto == null) {
+    public void invoke(SubjectExcelDto subjectExcelDto, AnalysisContext analysisContext) {
+        if (subjectExcelDto == null) {
             throw new ResourceNotFoundException();
         }
         // 添加 一级分类
         // 1. 检查 一级分类 是否已存在
-        String firstLevel = subjectDto.getFirstLevelSubject();
+        String firstLevel = subjectExcelDto.getFirstLevelSubject();
         Subject firstLevelSubject = checkSubject(firstLevel, "0");
         if (firstLevelSubject == null) {
             firstLevelSubject = insertSubject(firstLevel, "0");
@@ -42,7 +42,7 @@ public class SubjectReadListener extends AnalysisEventListener<SubjectDto> {
 
         // 添加 二级分类
         // 1. 检查 一级分类 是否已存在
-        String secondLevel = subjectDto.getSecondLevelSubject();
+        String secondLevel = subjectExcelDto.getSecondLevelSubject();
         Subject secondLevelSubject = checkSubject(secondLevel, pid);
         if (secondLevelSubject == null) {
             insertSubject(secondLevel, pid);

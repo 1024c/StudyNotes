@@ -1,16 +1,16 @@
 package com.tawe.service.edu.controller;
 
 import com.tawe.common.utils.ResultEntity;
+import com.tawe.service.edu.dto.SubjectTreeDto;
 import com.tawe.service.edu.service.SubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @ClassName SubjectController
@@ -37,5 +37,12 @@ public class SubjectController {
         subjectService.importSubjectData(file);
 
         return ResultEntity.ok();
+    }
+
+    @ApiOperation("获取课程分类树形结构")
+    @GetMapping("getSubjectTree")
+    public ResultEntity getSubjectTree() {
+        List<SubjectTreeDto> subjects = subjectService.getSubjectTree();
+        return ResultEntity.ok().data("items", subjects);
     }
 }
