@@ -1,7 +1,7 @@
 package com.tawe.service.edu.controller;
 
 import com.tawe.common.utils.ResultEntity;
-import com.tawe.service.edu.dto.SubjectTreeDto;
+import com.tawe.service.edu.vo.SubjectTreeVo;
 import com.tawe.service.edu.service.SubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +29,7 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @ApiOperation("Excel 批量导入")
-    @PostMapping("addSubject")
+    @PostMapping("add-subject")
     public ResultEntity addSubjectFromExcel(
             @ApiParam("课程分类 Excel 文件")
             @RequestBody MultipartFile file) {
@@ -40,9 +40,9 @@ public class SubjectController {
     }
 
     @ApiOperation("获取课程分类树形结构")
-    @GetMapping("getSubjectTree")
+    @GetMapping("get-subject-tree")
     public ResultEntity getSubjectTree() {
-        List<SubjectTreeDto> subjects = subjectService.getSubjectTree();
+        List<SubjectTreeVo> subjects = subjectService.getSubjectTree();
         return ResultEntity.ok().data("items", subjects);
     }
 }

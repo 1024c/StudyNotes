@@ -2,8 +2,8 @@ package com.tawe.service.edu.service.impl;
 
 import com.alibaba.excel.EasyExcelFactory;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tawe.service.edu.dto.SubjectExcelDto;
-import com.tawe.service.edu.dto.SubjectTreeDto;
+import com.tawe.service.edu.vo.SubjectExcelVo;
+import com.tawe.service.edu.vo.SubjectTreeVo;
 import com.tawe.service.edu.entity.Subject;
 import com.tawe.service.edu.listener.SubjectReadListener;
 import com.tawe.service.edu.mapper.SubjectMapper;
@@ -32,7 +32,7 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject>  imp
         // 1. 获取文件输入流
         try(InputStream inputStream = file.getInputStream()) {
             // 2. 使用 EasyExcel 进行读取
-            EasyExcelFactory.read(inputStream, SubjectExcelDto.class, new SubjectReadListener(this)).sheet().doRead();
+            EasyExcelFactory.read(inputStream, SubjectExcelVo.class, new SubjectReadListener(this)).sheet().doRead();
 
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -40,19 +40,19 @@ public class SubjectServiceImpl extends ServiceImpl<SubjectMapper, Subject>  imp
     }
 
     @Override
-    public List<SubjectTreeDto> getSubjectTree() {
+    public List<SubjectTreeVo> getSubjectTree() {
 
         // 1. 获取所有 subject 记录
         List<Subject> subjects = this.list(null);
         // 2. 根据 ID 将记录放入 HashMap 中, 用于后续查找
-        HashMap<String, SubjectTreeDto> subjectMap = new HashMap<>(subjects.size());
+        HashMap<String, SubjectTreeVo> subjectMap = new HashMap<>(subjects.size());
         subjects.forEach(subject -> {
-            SubjectTreeDto subjectDto = new SubjectTreeDto();
-            BeanUtils.copyProperties(subject, subjectDto);
-            subjectMap.put(subject.getId(), subjectDto);
+            SubjectTreeVo subjectVo = new SubjectTreeVo();
+            BeanUtils.copyProperties(subject, subjectVo);
+            subjectMap.put(subject.getId(), subjectVo);
         });
         // 3. 根据 PID 从 HashMap 中取记录
-        List<SubjectTreeDto> subjectTrees = new ArrayList<>();
+        List<SubjectTreeVo> subjectTrees = new ArrayList<>();
         subjects.forEach(subject -> {
             // pid == 0 说明是 跟节点
             if ("0".equals(subject.getParentId())) {

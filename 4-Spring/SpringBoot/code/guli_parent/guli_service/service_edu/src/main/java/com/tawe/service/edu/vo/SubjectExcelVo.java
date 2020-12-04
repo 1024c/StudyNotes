@@ -1,4 +1,4 @@
-package com.tawe.service.edu.dto;
+package com.tawe.service.edu.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.Data;
  **/
 
 @Data
-public class SubjectExcelDto {
+public class SubjectExcelVo {
 
     @ExcelProperty(index = 0)
     private String firstLevelSubject;

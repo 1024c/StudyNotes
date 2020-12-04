@@ -26,7 +26,11 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String upload(MultipartFile file) {
+        return upload(file, "");
+    }
 
+    @Override
+    public String upload(MultipartFile file, String path) {
         String endpoint = ConstantPropertiesUtil.END_POINT;
         String accessKeyId = ConstantPropertiesUtil.ACCESS_KEY_ID;
         String accessKeySecret = ConstantPropertiesUtil.ACCESS_KEY_SECRET;
@@ -52,7 +56,12 @@ public class FileServiceImpl implements FileService {
             String fileType = original.substring(original.lastIndexOf("."));
             String fileName = UUID.randomUUID().toString();
             String newName = fileName + fileType;
-            String fileUrl = filePath + "/" + newName;
+            String fileUrl;
+            if (path.isEmpty()) {
+                fileUrl = filePath + "/" + newName;
+            } else {
+                fileUrl = path + "/" + filePath + "/" + newName;
+            }
             uploadUrl = "http://" + fileHost + "/" + fileUrl;
             oss.putObject(bucketName, fileUrl, inputStream);
         } catch (IOException ioException) {

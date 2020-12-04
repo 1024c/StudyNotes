@@ -1,4 +1,4 @@
-package com.tawe.service.edu.dto;
+package com.tawe.service.edu.vo;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ClassName SubjectTreeDto
+ * @ClassName SubjectTreeVo
  * @Description 用于前端 Tree_node 显示
  * @Author davidt
  * @Date 11/16/2020 11:04 AM
@@ -14,9 +14,9 @@ import java.util.List;
  **/
 
 @Data
-public class SubjectTreeDto {
+public class SubjectTreeVo {
     private String id;
     private String title;
 
-    private List<SubjectTreeDto> children = new ArrayList<>();
+    private List<SubjectTreeVo> children = new ArrayList<>();
 }

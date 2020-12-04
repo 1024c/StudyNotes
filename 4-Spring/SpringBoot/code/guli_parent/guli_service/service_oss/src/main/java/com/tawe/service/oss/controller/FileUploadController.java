@@ -30,10 +30,24 @@ public class FileUploadController {
     @PostMapping("upload")
     public ResultEntity upload(
             @ApiParam(name="file", value="文件", required = true)
-            @RequestBody MultipartFile file
+            @RequestBody MultipartFile file,
+            @ApiParam(name = "host", value = "文件上传路径", required = true)
+            @RequestParam("host") String host
     ) {
 
-        String uploadUrl = fileService.upload(file);
-        return ResultEntity.ok().data("url", uploadUrl);
+        String uploadUrl = fileService.upload(file, host);
+        return ResultEntity.ok().message("文件上传成功").data("url", uploadUrl);
     }
+
+    // @ApiOperation(value="文件上传")
+    // @PostMapping("upload")
+    // public ResultEntity upload(
+    //         @ApiParam(name = "file", value = "文件", required = true)
+    //         @RequestParam("file") MultipartFile file,
+    //         @ApiParam(name = "host", value = "文件上传路径", required = true)
+    //         String host
+    // ) {
+    //     String uploadUrl = fileService.upload(file);
+    //     return ResultEntity.ok().message("文件上传成功").data("url", uploadUrl);
+    // }
 }

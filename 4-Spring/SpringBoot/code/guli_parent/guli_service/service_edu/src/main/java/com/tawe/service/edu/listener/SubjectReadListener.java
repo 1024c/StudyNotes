@@ -4,7 +4,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tawe.common.service.base.exception.ResourceNotFoundException;
-import com.tawe.service.edu.dto.SubjectExcelDto;
+import com.tawe.service.edu.vo.SubjectExcelVo;
 import com.tawe.service.edu.entity.Subject;
 import com.tawe.service.edu.service.SubjectService;
 
@@ -15,7 +15,7 @@ import com.tawe.service.edu.service.SubjectService;
  * @Date 11/13/2020 2:44 PM
  * @Version 1.0
  **/
-public class SubjectReadListener extends AnalysisEventListener<SubjectExcelDto> {
+public class SubjectReadListener extends AnalysisEventListener<SubjectExcelVo> {
 
     private final SubjectService subjectService;
 
@@ -25,13 +25,13 @@ public class SubjectReadListener extends AnalysisEventListener<SubjectExcelDto> 
 
 
     @Override
-    public void invoke(SubjectExcelDto subjectExcelDto, AnalysisContext analysisContext) {
-        if (subjectExcelDto == null) {
+    public void invoke(SubjectExcelVo subjectExcelVo, AnalysisContext analysisContext) {
+        if (subjectExcelVo == null) {
             throw new ResourceNotFoundException();
         }
         // 添加 一级分类
         // 1. 检查 一级分类 是否已存在
-        String firstLevel = subjectExcelDto.getFirstLevelSubject();
+        String firstLevel = subjectExcelVo.getFirstLevelSubject();
         Subject firstLevelSubject = checkSubject(firstLevel, "0");
         if (firstLevelSubject == null) {
             firstLevelSubject = insertSubject(firstLevel, "0");
@@ -42,7 +42,7 @@ public class SubjectReadListener extends AnalysisEventListener<SubjectExcelDto> 
 
         // 添加 二级分类
         // 1. 检查 一级分类 是否已存在
-        String secondLevel = subjectExcelDto.getSecondLevelSubject();
+        String secondLevel = subjectExcelVo.getSecondLevelSubject();
         Subject secondLevelSubject = checkSubject(secondLevel, pid);
         if (secondLevelSubject == null) {
             insertSubject(secondLevel, pid);

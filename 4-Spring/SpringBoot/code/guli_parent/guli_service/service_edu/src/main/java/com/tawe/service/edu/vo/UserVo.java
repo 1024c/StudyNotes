@@ -1,4 +1,4 @@
-package com.tawe.service.edu.dto;
+package com.tawe.service.edu.vo;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import lombok.Data;
  **/
 
 @Data
-public class UserDto {
+public class UserVo {
     private String name;
     private String[] roles;
     private String avatar;
