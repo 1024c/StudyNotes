@@ -2,14 +2,22 @@ package com.tawe.service.edu.controller;
 
 
 import com.alibaba.excel.util.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tawe.common.utils.ResultEntity;
+import com.tawe.service.edu.entity.Course;
 import com.tawe.service.edu.form.CourseInfoForm;
+import com.tawe.service.edu.query.CourseQuery;
 import com.tawe.service.edu.service.CourseService;
+import com.tawe.service.edu.vo.CoursePublishVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -59,6 +67,35 @@ public class CourseController {
             @PathVariable String id) {
         String courseId = courseService.updateCourseInfoById(courseInfoForm);
         return ResultEntity.ok().data("courseId", courseId);
+    }
+
+    @GetMapping("course-publish-info/{id}")
+    public ResultEntity getCoursePublishVoById(
+            @PathVariable String id
+    ) {
+        CoursePublishVo coursePublishVo = courseService.getCoursePublishVoById(id);
+        return ResultEntity.ok().data("item", coursePublishVo);
+    }
+
+    @PutMapping("publish-course/{id}")
+    public ResultEntity publishCourseById(
+            @PathVariable String id
+    ) {
+        boolean result = courseService.publishCourseById(id);
+        return result ? ResultEntity.ok() : ResultEntity.error().message("保存课程信息失败");
+    }
+
+    @GetMapping("{page}/{limit}")
+    public ResultEntity pageQuery(
+            @PathVariable Long page,
+            @PathVariable Long limit,
+            CourseQuery courseQuery
+    ) {
+        Page<Course> pageParam = new Page<>(page, limit);
+        courseService.pageQuery(pageParam, courseQuery);
+        List<Course> records = pageParam.getRecords();
+        long total = pageParam.getTotal();
+        return ResultEntity.ok().data("total", total).data("items", records);
     }
 }
 

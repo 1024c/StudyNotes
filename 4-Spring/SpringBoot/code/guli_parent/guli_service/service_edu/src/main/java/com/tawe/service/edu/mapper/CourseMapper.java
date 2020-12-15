@@ -2,6 +2,7 @@ package com.tawe.service.edu.mapper;
 
 import com.tawe.service.edu.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tawe.service.edu.vo.CoursePublishVo;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2020-12-03
  */
 public interface CourseMapper extends BaseMapper<Course> {
-
+    CoursePublishVo selectCoursePublishVoById(String id);
 }
