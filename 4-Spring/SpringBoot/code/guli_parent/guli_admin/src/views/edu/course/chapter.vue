@@ -52,7 +52,25 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="上传视频">
-              <!-- TODO -->
+              <el-upload
+                :on-success="handleVodUploadSuccess"
+                :on-remove="handleVodRemove"
+                :before-remove="beforeVodRemove"
+                :on-exceed="handleUploadExceed"
+                :file-list="fileList"
+                :action="BASE_API+'/admin/vod/video/upload'"
+                :limit="1"
+                class="upload-demo">
+                <el-button size="small" type="primary">上传视频</el-button>
+                <el-tooltip placement="right-end">
+                  <div slot="content">最大支持1G，<br>
+                    支持3GP、ASF、AVI、DAT、DV、FLV、F4V、<br>
+                    GIF、M2T、M4V、MJ2、MJPEG、MKV、MOV、MP4、<br>
+                    MPE、MPG、MPEG、MTS、OGG、QT、RM、RMVB、<br>
+                    SWF、TS、VOB、WMV、WEBM 等视频格式上传</div>
+                  <i class="el-icon-question"/>
+                </el-tooltip>
+              </el-upload>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -62,15 +80,15 @@
         </el-dialog>
 
         <!-- 视频 -->
-        <ul class="chanpterList videoList">
+        <ul class="chapterList videoList">
           <li
             v-for="video in chapter.children"
             :key="video.id">
             <p>{{ video.title }}
               <span class="acts">
-                        <el-button type="text" @click="editVideo(video.id)">编辑</el-button>
-                        <el-button type="text" @click="removeVideo(video.id)">删除</el-button>
-                    </span>
+                <el-button type="text" @click="editVideo(video.id)">编辑</el-button>
+                <el-button type="text" @click="removeVideo(video.id)">删除</el-button>
+              </span>
             </p>
           </li>
         </ul>
@@ -92,6 +110,7 @@
 <script>
   import chapter from "@/api/edu/chapter"
   import video from '@/api/edu/video'
+  import vod from '@/api/edu/vod'
 
   export default {
     data() {
@@ -111,8 +130,11 @@
           title: '',
           sort: 0,
           free: 0,
-          videoSourceId: ''
-        }
+          videoSourceId: '',
+          videoOriginalName: ''
+        },
+        fileList: [],
+        BASE_API: process.env.BASE_API
       }
     },
     created() {
@@ -136,7 +158,7 @@
         //   this.$router.push({ path: '/edu/course/info/' + this.$route.params.id })
         // }
         console.log('previous')
-        this.$route.push({ path: '/edu/course/info/' + this.courseId})
+        this.$router.push({ path: '/edu/course/info/' + this.courseId})
       },
       next() {
         console.log('next')
@@ -244,6 +266,7 @@
         this.dialogVideoFormVisible = true
         video.getVideoInfoById(videoId).then(response => {
           this.video = response.data.item
+          this.fileList = [{'name': this.video.videoOriginalName}]
         })
       },
       updateDataVideo() {
@@ -289,22 +312,42 @@
             })
           }
         })
+      },
+      handleVodUploadSuccess(response, file, fileList) {
+        this.video.videoSourceId = response.data.videoId
+        this.video.videoOriginalName = file.name
+      },
+      handleUploadExceed(files, fileList) {
+        this.$message.warning('请先删除已上传的视频')
+      },
+      beforeVodRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${file.name} ?`)
+      },
+      handleVodRemove(file, fileList) {
+        vod.removeById(this.video.videoSourceId).then(response => {
+          this.video.videoSourceId = ''
+          this.video.videoOriginalName = ''
+          this.fileList = []
+          this.$message({
+            type: 'success',
+            message: response.message
+          })
+        })
       }
-
     }
   }
 </script>
 <style scoped>
-  .chanpterList{
+  .chapterList{
     position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .chanpterList li{
+  .chapterList li{
     position: relative;
   }
-  .chanpterList p{
+  .chapterList p{
     float: left;
     font-size: 20px;
     margin: 10px 0;
@@ -314,7 +357,7 @@
     width: 100%;
     border: 1px solid #DDD;
   }
-  .chanpterList .acts {
+  .chapterList .acts {
     float: right;
     font-size: 14px;
   }

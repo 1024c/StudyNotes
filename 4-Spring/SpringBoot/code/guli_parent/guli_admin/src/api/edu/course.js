@@ -46,5 +46,12 @@ export default {
       method: 'get',
       params: searchObj
     })
+  },
+
+  removeById(id) {
+    return request ({
+      url: `${api_name}/${id}`,
+      method: 'delete'
+    })
   }
 }

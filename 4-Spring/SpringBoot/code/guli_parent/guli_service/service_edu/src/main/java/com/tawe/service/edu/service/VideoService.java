@@ -4,6 +4,8 @@ import com.tawe.service.edu.entity.Video;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tawe.service.edu.form.VideoInfoForm;
 
+import java.util.List;
+
 /**
  * <p>
  * 课程视频 服务类
@@ -23,4 +25,8 @@ public interface VideoService extends IService<Video> {
     void updateVideoInfoById(VideoInfoForm videoInfoForm);
 
     boolean removeVideoById(String id);
+
+    boolean removeVideoByCourseId(String courseId);
+
+    void removeVideoList(List<String> videoIdList);
 }

@@ -20,4 +20,6 @@ public interface ChapterService extends IService<Chapter> {
 
     boolean removeChapterById(String id);
 
+    boolean removeChapterByCourseId(String courseId);
+
 }

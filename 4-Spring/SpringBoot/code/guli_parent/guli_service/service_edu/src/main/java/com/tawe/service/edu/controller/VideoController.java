@@ -2,12 +2,12 @@ package com.tawe.service.edu.controller;
 
 
 import com.tawe.common.utils.ResultEntity;
-import com.tawe.service.edu.entity.Video;
 import com.tawe.service.edu.form.VideoInfoForm;
 import com.tawe.service.edu.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -59,6 +59,14 @@ public class VideoController {
         } else {
             return ResultEntity.error().message("课时信息删除失败");
         }
+    }
+
+    @DeleteMapping("delete-batch")
+    public ResultEntity removeVideoList(
+            @RequestParam("videoIdList") List<String> videoIdList
+            ) {
+        videoService.removeVideoList(videoIdList);
+        return ResultEntity.ok().message("视频删除成功");
     }
 
 }

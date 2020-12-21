@@ -7,12 +7,15 @@ import com.tawe.common.service.base.exception.CustomException;
 import com.tawe.common.utils.ResultCode;
 import com.tawe.service.edu.entity.Course;
 import com.tawe.service.edu.entity.CourseDescription;
+import com.tawe.service.edu.entity.Video;
 import com.tawe.service.edu.form.CourseInfoForm;
 import com.tawe.service.edu.mapper.CourseMapper;
 import com.tawe.service.edu.query.CourseQuery;
+import com.tawe.service.edu.service.ChapterService;
 import com.tawe.service.edu.service.CourseDescriptionService;
 import com.tawe.service.edu.service.CourseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tawe.service.edu.service.VideoService;
 import com.tawe.service.edu.vo.CoursePublishVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionService courseDescriptionService;
+
+    @Autowired
+    private VideoService videoService;
+
+    @Autowired
+    private ChapterService chapterService;
 
     @Override
     public String saveCourseInfo(CourseInfoForm courseInfoForm) {
@@ -136,5 +145,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 
         baseMapper.selectPage(pageParam, queryWrapper);
+    }
+
+    @Override
+    public boolean removeCourseById(String id) {
+        // 删除 视频
+        videoService.removeVideoByCourseId(id);
+        // 删除 章节
+        chapterService.removeChapterByCourseId(id);
+        // 删除 课程详情
+        courseDescriptionService.removeById(id);
+
+        int result = baseMapper.deleteById(id);
+        return result > 0;
     }
 }

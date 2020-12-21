@@ -97,5 +97,13 @@ public class CourseController {
         long total = pageParam.getTotal();
         return ResultEntity.ok().data("total", total).data("items", records);
     }
+
+    @DeleteMapping("{id}")
+    public ResultEntity removeById(
+            @PathVariable String id
+    ) {
+        boolean result = courseService.removeCourseById(id);
+        return result ? ResultEntity.ok() : ResultEntity.error().message("删除失败");
+    }
 }
 

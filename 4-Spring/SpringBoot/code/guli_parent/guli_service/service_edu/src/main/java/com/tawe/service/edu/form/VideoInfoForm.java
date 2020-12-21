@@ -20,6 +20,9 @@ public class VideoInfoForm {
     @ApiModelProperty(value = "节点名称")
     private String title;
 
+    @ApiModelProperty(value = "云服务器上存储的视频文件名称")
+    private String videoOriginalName;
+
     @ApiModelProperty(value = "课程ID")
     private String courseId;
 
