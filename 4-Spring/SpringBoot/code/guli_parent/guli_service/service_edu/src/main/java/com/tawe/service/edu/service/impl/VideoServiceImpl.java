@@ -1,21 +1,14 @@
 package com.tawe.service.edu.service.impl;
 
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.exceptions.ClientException;
-import com.aliyuncs.exceptions.ServerException;
-import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
-import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tawe.common.service.base.exception.CustomException;
 import com.tawe.service.edu.entity.Video;
 import com.tawe.service.edu.form.VideoInfoForm;
 import com.tawe.service.edu.mapper.VideoMapper;
 import com.tawe.service.edu.service.VideoService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.tawe.service.edu.service.VodClient;
-import com.tawe.service.vod.util.AliyunVodUtil;
-import com.tawe.service.vod.util.ConstantPropertiesUtil;
+import com.tawe.service.edu.client.VodClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,24 +104,5 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
         queryWrapper1.eq("course_id", courseId);
         int count = baseMapper.delete(queryWrapper1);
         return count > 0;
-    }
-
-    @Override
-    public void removeVideoList(List<String> videoIdList) {
-        DefaultAcsClient client = AliyunVodUtil.initVodClient(
-                ConstantPropertiesUtil.ACCESS_KEY_ID,
-                ConstantPropertiesUtil.ACCESS_KEY_SECRET
-        );
-        String str = org.apache.commons.lang.StringUtils.join(videoIdList.toArray(), ",");
-        DeleteVideoRequest request = new DeleteVideoRequest();
-        request.setVideoIds(str);
-        try {
-            DeleteVideoResponse response = client.getAcsResponse(request);
-            System.out.println("RequestId = " + response.getRequestId() + "\n");
-        } catch (ClientException e) {
-            throw new CustomException(20001, "视频删除失败");
-        }
-
-
     }
 }

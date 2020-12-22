@@ -27,6 +27,4 @@ public interface VideoService extends IService<Video> {
     boolean removeVideoById(String id);
 
     boolean removeVideoByCourseId(String courseId);
-
-    void removeVideoList(List<String> videoIdList);
 }

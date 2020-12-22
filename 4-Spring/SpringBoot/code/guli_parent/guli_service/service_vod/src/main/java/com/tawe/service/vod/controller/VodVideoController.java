@@ -1,11 +1,14 @@
 package com.tawe.service.vod.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.tawe.common.utils.ResultEntity;
-import com.tawe.service.vod.service.VideoService;
+import com.tawe.service.vod.service.VodVideoService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @ClassName VideoController
@@ -17,9 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @CrossOrigin
 @RequestMapping(value ="/vod/video/")
-public class VideoController {
+public class VodVideoController {
     @Autowired
-    private VideoService videoService;
+    private VodVideoService videoService;
 
     @PostMapping("upload")
     public ResultEntity uploadVideo(
@@ -35,5 +38,14 @@ public class VideoController {
     ) {
         videoService.removeVideo(videoId);
         return ResultEntity.ok().message("视频删除成功!");
+    }
+
+    @DeleteMapping("delete-batch")
+    public ResultEntity removeVideoList(
+            @ApiParam(name = "videoIdList", value = "云端视频id", required = true)
+            @RequestParam("videoIdList") List videoIdList){
+
+        videoService.removeVideoList(videoIdList);
+        return ResultEntity.ok().message("视频删除成功");
     }
 }

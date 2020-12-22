@@ -60,14 +60,5 @@ public class VideoController {
             return ResultEntity.error().message("课时信息删除失败");
         }
     }
-
-    @DeleteMapping("delete-batch")
-    public ResultEntity removeVideoList(
-            @RequestParam("videoIdList") List<String> videoIdList
-            ) {
-        videoService.removeVideoList(videoIdList);
-        return ResultEntity.ok().message("视频删除成功");
-    }
-
 }
 

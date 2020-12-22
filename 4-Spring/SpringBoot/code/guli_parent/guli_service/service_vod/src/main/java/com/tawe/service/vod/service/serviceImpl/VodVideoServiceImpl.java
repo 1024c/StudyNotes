@@ -7,11 +7,14 @@ import com.aliyuncs.vod.model.v20170321.CreateUploadVideoResponse;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoRequest;
 import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.tawe.common.service.base.exception.CustomException;
-import com.tawe.service.vod.service.VideoService;
+import com.tawe.service.vod.service.VodVideoService;
 import com.tawe.service.vod.util.AliyunVodUtil;
 import com.tawe.service.vod.util.ConstantPropertiesUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @ClassName VideoServiceImpl
@@ -21,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Version 1.0
  **/
 @Service
-public class VideoServiceImpl implements VideoService {
+public class VodVideoServiceImpl implements VodVideoService {
 
     @Override
     public String uploadVideo(MultipartFile file) {
@@ -57,6 +60,30 @@ public class VideoServiceImpl implements VideoService {
             System.out.println("RequestId = " + response.getRequestId() + "\n");
         } catch (ClientException e) {
             throw new CustomException(20001, "视频删除失败!");
+        }
+    }
+
+    @Override
+    public void removeVideoList(List<String> videoIdList) {
+        try {
+            //初始化
+            DefaultAcsClient client = AliyunVodUtil.initVodClient(
+                    ConstantPropertiesUtil.ACCESS_KEY_ID,
+                    ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+
+            //创建请求对象
+            //一次只能批量删20个
+            String str = StringUtils.join(videoIdList.toArray(), ",");
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            request.setVideoIds(str);
+
+            //获取响应
+            DeleteVideoResponse response = client.getAcsResponse(request);
+
+            System.out.print("RequestId = " + response.getRequestId() + "\n");
+
+        } catch (ClientException e) {
+            throw new CustomException(20001, "视频删除失败");
         }
     }
 }
