@@ -75,7 +75,7 @@ public class VideoServiceImpl extends ServiceImpl<VideoMapper, Video> implements
         // 删除视频
         Video video = baseMapper.selectById(id);
         String videoSourceId = video.getVideoSourceId();
-        if (StringUtils.isEmpty(videoSourceId)) {
+        if (!StringUtils.isEmpty(videoSourceId)) {
             vodClient.removeVideo(videoSourceId);
         }
         int result = baseMapper.deleteById(id);

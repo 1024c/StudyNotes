@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public interface VodClient {
 
-    @DeleteMapping("/edu/video/{videoId}")
+    @DeleteMapping("/vod/video/{videoId}")
     ResultEntity removeVideo(@PathVariable("videoId") String videoId);
 
     @DeleteMapping("/vod/video/delete-batch")

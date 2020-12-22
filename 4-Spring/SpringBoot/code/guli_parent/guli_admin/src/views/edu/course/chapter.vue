@@ -203,6 +203,7 @@
           videoSourceId: '',
           videoOriginalName: ''
         }
+        this.fileList = []
       },
       editChapter(chapterId) {
         this.dialogChapterFormVisible = true
@@ -275,7 +276,8 @@
         this.dialogVideoFormVisible = true
         video.getVideoInfoById(videoId).then(response => {
           this.video = response.data.item
-          this.fileList = [{'name': this.video.videoOriginalName}]
+          this.video.videoOriginalName === '' ?
+            this.fileList = [] : this.fileList = [{'name': this.video.videoOriginalName}]
         })
       },
       updateDataVideo() {
