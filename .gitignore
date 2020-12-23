@@ -51,3 +51,6 @@ Mybatis/IDEA-workspaces/simple/.settings/org.eclipse.jdt.core.prefs
 
 # nacos logs
 *.log.*
+
+# nacos 启动相关记录
+nacos-2.0/data/
